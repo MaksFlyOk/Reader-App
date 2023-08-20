@@ -1,0 +1,108 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  email        String @unique
+  name         String
+  password     String
+  profileImage String @default("") @map("profile_image")
+  readLater    Book[]
+
+  isAdmin Boolean @default(false) @map("is_admin")
+
+  BookLog    BookLog[]
+  ChapterLog ChapterLog[]
+}
+
+model Author {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name String @unique
+
+  books Book[]
+}
+
+model Book {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name        String
+  description String
+  images      String
+  rate        Json[]
+
+  author Author? @relation(fields: [authorId], references: [id])
+
+  chapters Chapter[]
+  bookLogs BookLog[]
+
+  user     User[]
+  authorId Int?   @map("author_id")
+}
+
+model BookLog {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  isCompleted Boolean @default(false) @map("is_completed")
+
+  chaptersLogs ChapterLog[]
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?  @map("user_id")
+
+  book   Book? @relation(fields: [bookId], references: [id])
+  bookId Int?
+
+  @@map("Book_log")
+}
+
+model Chapter {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name String
+  text String
+
+  book   Book? @relation(fields: [bookId], references: [id])
+  bookId Int?  @map("book_id")
+
+  chapterLogs ChapterLog[]
+}
+
+model ChapterLog {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  isCompleted Boolean @default(false) @map("is_completed")
+
+  bookLog   BookLog? @relation(fields: [bookLogId], references: [id])
+  bookLogId Int?     @map("book_log_id")
+
+  chapter   Chapter? @relation(fields: [chapterId], references: [id])
+  chapterId Int?     @map("chapter_id")
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?
+
+  @@map("Chapter_log")
+}

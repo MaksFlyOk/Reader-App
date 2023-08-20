@@ -1,0 +1,66 @@
+@import '/src/assets/styles/variables';
+@import '/src/assets/styles/animation';
+@import '/src/assets/styles/mixins';
+
+.wrapper {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	> div {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		padding: 24px 160px;
+		background-color: $dark-accent;
+		border-radius: $border-radius-little;
+	}
+}
+
+.formWrapper {
+	width: 100%;
+	margin: 120px 0 160px 0;
+	form {
+		display: flex;
+		flex-direction: column;
+
+		div:first-child {
+			> input {
+				animation: $showBlockAnimation;
+			}
+		}
+	}
+}
+
+.buttonWrapper {
+	display: flex;
+	flex-direction: row;
+
+	> button,
+	span {
+		width: calc((100% - 24px) / 2);
+	}
+
+	> button:first-child {
+		margin-right: 24px;
+	}
+
+	> span {
+		@include pseudo-button-span;
+		> img {
+			margin-left: 12px;
+			transition: transform ease-in-out 1s;
+		}
+	}
+
+	> span:hover,
+	span:focus {
+		@include hover-focus;
+	}
+	> span:active {
+		@include active;
+	}
+}

@@ -1,0 +1,143 @@
+@import '/src/assets/styles/variables';
+
+.wrapper {
+	width: 100vw;
+	height: 100vh;
+	background-color: $dark-accent;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	> div {
+		width: 540px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		> h1 {
+			font-size: 60px;
+			font-family: $accent-font;
+			font-weight: normal;
+		}
+
+		> p {
+			margin: 48px 0 24px 0;
+			font-size: 40px;
+			width: 480px;
+			font-weight: normal;
+		}
+
+		> button {
+			z-index: 1;
+		}
+
+		> svg {
+			position: fixed;
+			bottom: 0;
+			right: 0;
+			transform: rotate(-15deg) translateX(16vw) translateY(20vw);
+			width: 70vw;
+			height: 70vw;
+			z-index: 0;
+		}
+	}
+}
+
+.typewriter::before {
+	content: '';
+	animation: typing 2.5s both;
+}
+
+.typewriter::after {
+	content: '';
+	border-right: 5px solid $accent;
+	animation: blink 1s linear infinite;
+}
+
+@keyframes blink {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+}
+
+@keyframes typing {
+	4% {
+		content: '';
+	}
+	8% {
+		content: '';
+	}
+	12% {
+		content: '4';
+	}
+	16% {
+		content: '40';
+	}
+	20% {
+		content: '404';
+	}
+	24% {
+		content: '404,';
+	}
+	28% {
+		content: '404,';
+	}
+	32% {
+		content: '404,';
+	}
+	36% {
+		content: '404, ';
+	}
+	40% {
+		content: '404, p';
+	}
+	44% {
+		content: '404, pa';
+	}
+	48% {
+		content: '404, pag';
+	}
+	52% {
+		content: '404, page';
+	}
+	56% {
+		content: '404, page ';
+	}
+	60% {
+		content: '404, page n';
+	}
+	64% {
+		content: '404, page no';
+	}
+	68% {
+		content: '404, page not';
+	}
+	72% {
+		content: '404, page not ';
+	}
+	76% {
+		content: '404, page not ';
+	}
+	80% {
+		content: '404, page not f';
+	}
+	84% {
+		content: '404, page not fo';
+	}
+	88% {
+		content: '404, page not fou';
+	}
+	92% {
+		content: '404, page not foun';
+	}
+	96% {
+		content: '404, page not found';
+	}
+	100% {
+		content: '404, page not found.';
+	}
+}

@@ -1,0 +1,53 @@
+@import '/src/assets/styles/variables';
+
+.wrapper {
+	color: $text-black-opacity87;
+	margin-right: 48px;
+	margin-top: 32px;
+
+	> li {
+		width: 100%;
+		margin-bottom: 18px;
+		background-color: $bg-color;
+		border-radius: $border-radius-little;
+		display: flex;
+		justify-content: space-between;
+		padding: 7px 24px;
+		align-items: center;
+
+		> div {
+			display: flex;
+			gap: 24px;
+
+			> span:first-child {
+				font-size: 24px;
+				font-weight: 600;
+			}
+
+			> span {
+				font-size: 24px;
+				font-weight: normal;
+			}
+		}
+
+		> .readLaterButton {
+			background-color: $dark-accent;
+			width: 40px;
+			height: 40px;
+			border-radius: $circle-radius;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+			transition: scale ease-in-out 0.3s;
+
+			> img {
+				background-repeat: no-repeat;
+			}
+		}
+
+		.readLaterButton:hover {
+			scale: 1.1;
+		}
+	}
+}

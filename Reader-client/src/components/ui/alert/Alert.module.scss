@@ -1,0 +1,30 @@
+@import '/src/assets/styles/animation';
+@import 'src/assets/styles/variables';
+
+.alert {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: max-content;
+	font-weight: 500;
+	background-color: #5be7c4;
+	color: $text-black-opacity87;
+	margin: 20px;
+	border-radius: $border-radius-little;
+	padding: 8px 16px;
+	animation: showAlert 4s;
+
+	&.error {
+		background-color: $error-color;
+		color: $white;
+	}
+
+	&.info {
+		background-color: #50c1e9;
+	}
+
+	&.warning {
+		background-color: #f75940;
+		color: $white;
+	}
+}

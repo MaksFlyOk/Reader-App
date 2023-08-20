@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Book" ALTER COLUMN "images" SET NOT NULL,
+ALTER COLUMN "images" SET DATA TYPE TEXT;

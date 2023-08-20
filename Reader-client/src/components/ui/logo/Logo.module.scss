@@ -1,0 +1,20 @@
+@import '/src/assets/styles/variables';
+@import '/src/assets/styles/mixins';
+
+.logo {
+	display: flex;
+	align-items: center;
+	gap: 24px;
+	font-size: 40px;
+	font-weight: bold;
+	font-family: $accent-font;
+
+	> span::after {
+		@include link-underline-after;
+	}
+
+	> span:hover:after,
+	> span:focus:after {
+		@include link-underline-after-HoverAndFocus;
+	}
+}

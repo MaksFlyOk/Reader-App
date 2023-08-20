@@ -1,0 +1,30 @@
+@import '/src/assets/styles/variables';
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	margin: 12px 20px 0 24px;
+	padding: 15px 24px;
+	background-color: $dark-accent;
+	border-radius: $border-radius-large;
+
+	> .leftNavButtons {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 48px;
+
+		> div {
+			display: flex;
+			gap: 32px;
+
+			> button {
+				transition: scale ease-in-out 0.3s;
+			}
+
+			> button:hover {
+				scale: 1.1;
+			}
+		}
+	}
+}

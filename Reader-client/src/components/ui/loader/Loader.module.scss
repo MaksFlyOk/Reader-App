@@ -1,0 +1,66 @@
+@import '/src/assets/styles/variables';
+
+@-webkit-keyframes animate-svg-stroke-1 {
+	0% {
+		stroke-dashoffset: 0;
+		stroke-dasharray: 370.8515625px;
+	}
+
+	30% {
+		stroke-dashoffset: 370.8515625px;
+		stroke-dasharray: 370.8515625px;
+	}
+
+	70% {
+		stroke-dashoffset: 370.8515625px;
+		stroke-dasharray: 370.8515625px;
+	}
+
+	100% {
+		stroke-dashoffset: 0;
+		stroke-dasharray: 370.8515625px;
+	}
+}
+
+@keyframes animate-svg-stroke-1 {
+	0% {
+		stroke-dashoffset: 0;
+		stroke-dasharray: 370.8515625px;
+	}
+
+	30% {
+		stroke-dashoffset: 370.8515625px;
+		stroke-dasharray: 370.8515625px;
+	}
+
+	70% {
+		stroke-dashoffset: 370.8515625px;
+		stroke-dasharray: 370.8515625px;
+	}
+
+	100% {
+		stroke-dashoffset: 0;
+		stroke-dasharray: 370.8515625px;
+	}
+}
+
+.svgLogoAnimation {
+	-webkit-animation: animate-svg-stroke-1 3s cubic-bezier(0.47, 0, 0.745, 0.715)
+		0s both;
+	animation: animate-svg-stroke-1 3s cubic-bezier(0.47, 0, 0.745, 0.715) 0s both;
+	animation-iteration-count: infinite;
+
+	margin: 0 auto;
+}
+
+.Accent {
+	stroke: $accent;
+}
+
+.Black {
+	stroke: $dark-accent;
+}
+
+.White {
+	stroke: $bg-color;
+}

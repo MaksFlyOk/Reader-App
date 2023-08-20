@@ -1,0 +1,51 @@
+@import '/src/assets/styles/variables';
+
+.wrapper {
+	background-color: $dark-accent;
+	margin: 48px 12px;
+	border-radius: $border-radius-little;
+	display: flex;
+}
+
+.rightSection {
+	padding: 48px 0 0 48px;
+
+	> div {
+		width: 400px;
+		height: 400px;
+
+		> img {
+			border-radius: $border-radius-little;
+			width: 400px;
+			height: 400px;
+			object-fit: cover;
+		}
+	}
+
+	> button {
+		margin-top: 32px;
+		margin-bottom: 32px;
+		width: 400px;
+	}
+}
+
+.leftSection {
+	position: relative;
+	width: 100%;
+	padding: 48px 0 0 72px;
+
+	button:first-child {
+		margin-right: 24px;
+	}
+
+	> h1:nth-child(1) {
+		font-size: 60px;
+		font-weight: normal;
+		font-family: $accent-font;
+	}
+	> h1 {
+		font-size: 40px;
+		font-weight: lighter;
+		margin-bottom: 12px;
+	}
+}

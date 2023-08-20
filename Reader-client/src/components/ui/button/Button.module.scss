@@ -1,0 +1,70 @@
+@import '/src/assets/styles/variables';
+@import '/src/assets/styles/mixins';
+
+.fillButton {
+	width: max-content;
+	padding: 13px 15px;
+	font-size: 30px;
+	font-weight: normal;
+	background-color: $accent;
+	color: $text-black-opacity87;
+	border-radius: 16px;
+	font-family: $accent-font;
+	transition: box-shadow ease-in-out 0.3s;
+}
+
+.fillButton:hover,
+.fillButton:focus {
+	@include hover-focus;
+}
+.fillButton:active {
+	@include active;
+}
+
+.borderButton {
+	width: max-content;
+	padding: 13px 15px;
+	font-size: 30px;
+	font-weight: lighter;
+	border: 2px solid $accent;
+	color: $accent;
+	border-radius: 16px;
+	font-family: $accent-font;
+	transition-property: text-shadow, box-shadow;
+	transition-duration: 0.3s;
+	transition-timing-function: ease-in-out;
+}
+
+.borderButton:hover,
+.borderButton:focus {
+	text-shadow: 5px 5px $text-black-opacity87;
+	@include hover-focus;
+}
+.borderButton:active {
+	text-shadow: 0px 0px $text-black-opacity87;
+	@include active;
+}
+
+.arrowButton {
+	width: max-content;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 12px;
+	padding: 13px 15px;
+	font-size: 30px;
+	font-weight: normal;
+	background-color: $accent;
+	color: $text-black-opacity87;
+	border-radius: 16px;
+	font-family: $accent-font;
+	transition: box-shadow ease-in-out 0.3s;
+}
+
+.arrowButton:hover,
+.arrowButton:focus {
+	@include hover-focus;
+}
+.arrowButton:active {
+	@include active;
+}

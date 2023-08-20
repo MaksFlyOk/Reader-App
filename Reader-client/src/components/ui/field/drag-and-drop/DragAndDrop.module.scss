@@ -1,0 +1,76 @@
+@import '/src/assets/styles/variables';
+@import '/src/assets/styles/mixins';
+@import '/src/assets/styles/animation';
+
+.inputWrapper {
+	margin-bottom: 24px;
+}
+
+.error {
+	margin-top: 2px;
+	font-size: 16px;
+	font-family: $default-font;
+	color: $error-color;
+}
+
+.fileFieldSmall {
+	> input {
+		opacity: 0;
+		width: 0.1px;
+		height: 0.1px;
+		position: absolute;
+	}
+
+	> label {
+		background-color: $bg-color;
+		width: calc(100vw / 3);
+		border-radius: $border-radius-little;
+		padding: 8px 16px;
+		font-size: 30px;
+		font-weight: lighter;
+		font-family: $accent-font;
+		display: block;
+		position: relative;
+		width: calc(100vw / 3);
+		cursor: pointer;
+		transition: box-shadow ease-in-out 0.3s;
+	}
+
+	label:hover,
+	input:focus + label {
+		@include hover-focus;
+	}
+}
+
+.fileName {
+	font-size: 16px;
+	font-family: $accent-font;
+	color: $bg-color;
+}
+
+.dropZoneActive {
+	background-color: rgba($accent, 0.5);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 3;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: $text-black-opacity87;
+	font-size: 60px;
+	font-weight: normal;
+	font-family: $default-font;
+	animation: $showBlockAnimation;
+}
+
+.dropZonePassive {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 1;
+}
