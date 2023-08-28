@@ -1,0 +1,52 @@
+@import '/src/assets/styles/variables';
+
+.wrapper {
+	margin: 24px 0;
+	padding: 25px 0;
+	position: relative;
+	display: flex;
+	overflow: hidden;
+	user-select: none;
+	background-color: $dark-accent;
+	gap: 24px;
+
+	> div {
+		flex-shrink: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 24px;
+		justify-content: space-around;
+		min-width: 100%;
+		height: max-content;
+		animation: scroll 40s linear infinite;
+
+		p {
+			width: 100%;
+			margin-bottom: 5px;
+			font-size: 40px;
+			font-weight: bold;
+			color: $bg-color;
+			transition: text-shadow ease-in-out 0.5s;
+		}
+	}
+}
+.wrapper:before,
+.wrapper:after {
+	content: '';
+	height: 100%;
+	top: 0;
+	width: 10%;
+	position: absolute;
+	z-index: 1;
+	pointer-events: none;
+}
+
+@keyframes scroll {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(calc(-100% - 20px));
+	}
+}

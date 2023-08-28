@@ -3,18 +3,13 @@ import { prisma } from '../prisma.js'
 
 // @desc    Add new author
 // @route 	POST /api/author
-// @access  Private
+// @access  Admin
 export const addNewAuthor = asyncHandler(async (req, res) => {
 	const { name } = req.body
 
 	const author = await prisma.author.create({
 		data: {
 			name
-		},
-		select: {
-			id: true,
-			name: true,
-			books: true
 		}
 	})
 
@@ -23,7 +18,7 @@ export const addNewAuthor = asyncHandler(async (req, res) => {
 
 // @desc    Delete author
 // @route 	Post /api/author/delete/:id
-// @access  Private
+// @access  Admin
 export const deleteAuthor = asyncHandler(async (req, res) => {
 	const author = await prisma.author.delete({
 		where: {

@@ -1,7 +1,7 @@
 /**
  * The function that simply translates a UTC date into a regular date of the format dd.mm.yyyy.
- * @param {String} date - This is the date that comes from the backend in UTC format.
- * @returns {String} Return the string, date in the format dd.mm.yyyy.
+ * @param {string} date - This is the date that comes from the backend in UTC format.
+ * @returns {string} Return the string, date in the format dd.mm.yyyy.
  */
 
 export const dateRegister = date => {

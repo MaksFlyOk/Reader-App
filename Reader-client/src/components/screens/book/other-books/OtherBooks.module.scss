@@ -1,0 +1,110 @@
+@import '/src/assets/styles/variables';
+@import '/src/assets/styles/mixins';
+
+.wrapperRelated {
+	width: 100%;
+	background-color: $dark-accent;
+	padding: 24px 24px 48px 24px;
+	margin-bottom: 48px;
+
+	> h1 {
+		font-size: 60px;
+		font-family: $accent-font;
+		font-weight: normal;
+		margin-bottom: 24px;
+	}
+
+	> div {
+		display: flex;
+		gap: 24px;
+	}
+}
+
+.wrapperOtherBooksByAuthor {
+	width: 100%;
+	background-color: $dark-accent;
+	padding: 24px 24px 48px 24px;
+	margin-bottom: 48px;
+
+	> h1 {
+		font-size: 60px;
+		font-family: $accent-font;
+		font-weight: normal;
+		margin-bottom: 24px;
+	}
+
+	> div {
+		display: flex;
+		gap: 24px;
+
+		> div:last-child {
+			background-color: $accent;
+			width: calc((100vw - 24px * 7) / 6);
+			transition: box-shadow ease-in-out 0.3s;
+			border-radius: $border-radius-large;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			> h1 {
+				font-size: 60px;
+				font-family: $accent-font;
+				font-weight: normal;
+				color: $dark-accent;
+				transform: rotate(90deg);
+			}
+		}
+
+		> div:last-child:hover,
+		> div:last-child:focus {
+			@include hover-focus;
+		}
+		> div:last-child:active {
+			@include active;
+		}
+	}
+}
+
+.book {
+	width: calc((100vw - 24px * 7) / 6);
+	background-color: $bg-color;
+	border-radius: $border-radius-large;
+	color: $dark-accent;
+	padding: 24px;
+	display: flex;
+	flex-direction: column;
+	transition: box-shadow ease-in-out 0.3s;
+
+	> div:first-child {
+		width: 100%;
+		height: 100%;
+		margin-bottom: 12px;
+		> img {
+			height: 100%;
+			width: 100%;
+			object-fit: cover;
+			border: 2px solid $dark-accent;
+			border-radius: $border-radius-little;
+		}
+	}
+
+	> div:last-child {
+		h2 {
+			font-weight: normal;
+			font-size: 16px;
+		}
+		h1 {
+			font-family: $accent-font;
+			font-size: 16px;
+			font-weight: 600;
+		}
+	}
+}
+
+.book:hover,
+.book:focus {
+	@include hover-focus;
+}
+.book:active {
+	@include active;
+}

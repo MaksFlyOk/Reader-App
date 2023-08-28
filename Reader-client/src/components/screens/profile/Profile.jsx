@@ -1,30 +1,34 @@
 import Cookies from 'js-cookie'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { TOKEN } from '../../../app.constants'
-import { useAdmin } from '../../../hooks/useAdmin'
-import { useAuth } from '../../../hooks/useAuth'
-import { useProfile } from '../../../hooks/useProfile'
+
+import { useContextStates } from '../../../hooks/useContextStates'
+import { useProfile } from '../../../hooks/user/useProfile'
+
 import { dateRegister } from '../../../utils/dateRegister.util'
-import { getImage } from '../../../utils/getImage.util'
-import Layout from '../../layout/layout'
+import { getFilePath } from '../../../utils/file/getFile.util'
+
 import Button from '../../ui/button/Button'
 import Loader from '../../ui/loader/Loader'
 import ReadLaterPanel from '../../ui/read-later-panel/ReadLaterPanel'
+
 import styles from './Profile.module.scss'
 
+import { TOKEN } from '../../../app.constants'
+import Layout from '../../layout/layout'
+
 const Profile = () => {
-	const { setIsAuth } = useAuth()
-	const { isAdmin, setIsAdmin } = useAdmin()
+	const { isAdmin, setIsAdmin, setIsAuth } = useContextStates()
 
 	const navigate = useNavigate()
 
-	const { data, isLoading } = useProfile()
+	const { data, isLoading, refetch } = useProfile()
 
 	useEffect(() => {
 		if (data?.isAdmin) {
 			setIsAdmin(true)
 		}
+		refetch()
 	})
 
 	const logoutHandler = () => {
@@ -47,10 +51,11 @@ const Profile = () => {
 								<img
 									src={
 										data?.profileImage
-											? getImage(data?.profileImage)
-											: '/public/Profile.jpg'
+											? getFilePath(data?.profileImage)
+											: '/public/profile/Profile.jpg'
 									}
 									alt='Profile image'
+									draggable={false}
 								/>
 							</div>
 							<Button
@@ -72,7 +77,7 @@ const Profile = () => {
 									</Button>
 								) : null}
 							</div>
-							<ReadLaterPanel data={data?.readLater}></ReadLaterPanel>
+							<ReadLaterPanel style='profile' />
 						</div>
 					</>
 				)}

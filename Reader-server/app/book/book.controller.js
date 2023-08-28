@@ -5,19 +5,18 @@ import { prisma } from '../prisma.js'
 // @route 	POST /api/book/
 // @access  Private
 export const addNewBook = asyncHandler(async (req, res) => {
-	const { name, description, images } = req.body
+	const { name, description, images, genre, publishDate, category, pages } =
+		req.body
 
 	const book = await prisma.book.create({
 		data: {
 			name,
 			description,
-			images
-		},
-		select: {
-			id: true,
-			name: true,
-			description: true,
-			images: true
+			images,
+			genre,
+			publishDate,
+			category,
+			pages
 		}
 	})
 
@@ -35,8 +34,6 @@ export const deleteBookById = asyncHandler(async (req, res) => {
 		select: {
 			id: true,
 			name: true,
-			description: true,
-			images: true,
 			author: true,
 			rate: true,
 			chapters: true
@@ -57,5 +54,5 @@ export const deleteBookById = asyncHandler(async (req, res) => {
 			})
 	)
 
-	res.json({ ...book, message: 'Book & all book logs deleted!' })
+	res.json({ ...book, message: 'Book & all book chapters deleted!' })
 })

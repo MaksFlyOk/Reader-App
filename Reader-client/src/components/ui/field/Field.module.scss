@@ -12,7 +12,7 @@
 	color: $error-color;
 }
 
-.whiteField {
+.field {
 	background-color: $bg-color;
 	width: calc(100vw / 3);
 	border-radius: $border-radius-little;
@@ -24,19 +24,19 @@
 	transition: box-shadow ease-in-out 0.3s;
 }
 
-.whiteField::placeholder {
+.field::placeholder {
 	color: $icon-black-opacity20;
 	font-size: 30px;
 	font-weight: lighter;
 	font-family: $accent-font;
 }
 
-.whiteField:hover,
-.whiteField:focus {
+.field:hover,
+.field:focus {
 	@include hover-focus;
 }
 
-.whiteFieldSmall {
+.fieldSmall {
 	background-color: $bg-color;
 	width: calc(100vw / 3);
 	border-radius: $border-radius-little;
@@ -48,14 +48,14 @@
 	transition: box-shadow ease-in-out 0.3s;
 }
 
-.whiteFieldSmall::placeholder {
+.fieldSmall::placeholder {
 	color: $icon-black-opacity20;
 	font-size: 30px;
 	font-weight: lighter;
 	font-family: $accent-font;
 }
 
-.whiteFieldSmall:hover,
-.whiteFieldSmall:focus {
+.fieldSmall:hover,
+.fieldSmall:focus {
 	@include hover-focus;
 }

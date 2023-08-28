@@ -1,5 +1,6 @@
-import Layout from '../../layout/layout'
 import styles from './AboutUs.module.scss'
+
+import Layout from '../../layout/layout'
 
 const AboutUs = () => {
 	return (
@@ -16,7 +17,7 @@ const AboutUs = () => {
 						</p>
 					</div>
 					<a
-						href='https://github.com/MaksFlyOk?tab=repositories'
+						href='https://github.com/MaksFlyOk/Reader-App'
 						target='_blank'
 						rel='noopener noreferrer'
 					>

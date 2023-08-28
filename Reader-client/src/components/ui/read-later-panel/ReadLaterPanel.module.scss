@@ -1,13 +1,24 @@
 @import '/src/assets/styles/variables';
+@import '/src/assets/styles/mixins';
+@import './readLaterAnimation';
 
 .wrapper {
 	color: $text-black-opacity87;
 	margin-right: 48px;
 	margin-top: 32px;
+	display: grid;
+	gap: 18px;
+
+	@for $i from 1 through length($showReadLaterArray) {
+		> li:nth-child(#{$i}) {
+			grid-row-start: $i;
+			grid-column-start: 1;
+			animation: nth($showReadLaterArray, $i);
+		}
+	}
 
 	> li {
 		width: 100%;
-		margin-bottom: 18px;
 		background-color: $bg-color;
 		border-radius: $border-radius-little;
 		display: flex;
@@ -39,15 +50,20 @@
 			justify-content: center;
 			align-items: center;
 			cursor: pointer;
-			transition: scale ease-in-out 0.3s;
+			transition: transform ease-in-out 0.3s;
 
 			> img {
 				background-repeat: no-repeat;
 			}
 		}
 
-		.readLaterButton:hover {
-			scale: 1.1;
+		.readLaterButton:hover,
+		.readLaterButton:focus {
+			transform: scale(1.05);
+		}
+
+		.readLaterButton:active {
+			transform: scale(1);
 		}
 	}
 }

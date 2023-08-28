@@ -2,6 +2,7 @@ import { hash, verify } from 'argon2'
 import asyncHandler from 'express-async-handler'
 import { prisma } from '../prisma.js'
 import { generateToken } from '../utils/generate-token.util.js'
+import { AuthFields } from './auth-fields.js'
 
 // @desc   Login user
 // @route  POST /api/auth/login
@@ -48,12 +49,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 			email,
 			password: await hash(password)
 		},
-		select: {
-			id: true,
-			name: true,
-			email: true,
-			isAdmin: true
-		}
+		select: AuthFields
 	})
 
 	const token = generateToken(user.id)
@@ -69,12 +65,7 @@ export const deleteUser = asyncHandler(async (req, res) => {
 		where: {
 			id: req.user.id
 		},
-		select: {
-			id: true,
-			name: true,
-			email: true,
-			isAdmin: true
-		}
+		select: AuthFields
 	})
 
 	if (!user) {

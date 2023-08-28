@@ -25,6 +25,7 @@ model User {
 
   BookLog    BookLog[]
   ChapterLog ChapterLog[]
+  Ratings    Ratings[]
 }
 
 model Author {
@@ -32,9 +33,22 @@ model Author {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  name String @unique
+  name   String  @unique
+  images String  @default("")
+  rate   Decimal @default(0)
 
   books Book[]
+}
+
+model Ratings {
+  id Int @id @default(autoincrement())
+
+  rating Int
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @map("user_id")
+  book   Book @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  bookId Int  @map("book_id")
 }
 
 model Book {
@@ -45,15 +59,22 @@ model Book {
   name        String
   description String
   images      String
-  rate        Json[]
+  genre       String   @default("")
+  publishDate String   @default("")
+  category    String[]
+  pages       Int      @default(0)
 
-  author Author? @relation(fields: [authorId], references: [id])
+  sumRate Int       @default(0)
+  rate    Ratings[]
+  Rating  Decimal   @default(0)
+
+  author   Author? @relation(fields: [authorId], references: [id])
+  authorId Int?    @map("author_id")
 
   chapters Chapter[]
   bookLogs BookLog[]
 
-  user     User[]
-  authorId Int?   @map("author_id")
+  user User[]
 }
 
 model BookLog {

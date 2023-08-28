@@ -2,15 +2,24 @@ import express from 'express'
 import { admin } from '../middleware/admin.middleware.js'
 import { addNewAuthor, deleteAuthor } from './author.controller.js'
 import { addAuthorBook, deleteAuthorBook } from './book-author.controller.js'
-import { getAuthor, getAuthors } from './get-author.controller.js'
+import {
+	getAuthorById,
+	getAuthorsByCreatedAt,
+	getAuthorsByNumberOfBooks,
+	getAuthorsByRating
+} from './get-author.controller.js'
 
 const router = express.Router()
 
 router.route('/').post(admin, addNewAuthor)
 
-router.route('/all').get(getAuthors)
+router.route('/all/created-at').get(getAuthorsByCreatedAt)
 
-router.route('/:id').get(getAuthor)
+router.route('/all/rating').get(getAuthorsByRating)
+
+router.route('/all/number-of-books').get(getAuthorsByNumberOfBooks)
+
+router.route('/:id').get(getAuthorById)
 
 router.route('/book/add/:id').patch(admin, addAuthorBook)
 

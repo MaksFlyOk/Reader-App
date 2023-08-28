@@ -1,15 +1,19 @@
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../../../hooks/useAuth'
+
+import { useContextStates } from '../../../hooks/useContextStates'
+
 import Button from '../../ui/button/Button'
 import Logo from '../../ui/logo/Logo'
+
 import styles from './Header.module.scss'
+
 import Nav from './nav/Nav'
 import { navigationElements } from './navigationElements'
 
 const Header = () => {
 	const navigate = useNavigate()
 
-	const { isAuth } = useAuth()
+	const { isAuth } = useContextStates()
 
 	return (
 		<header className={styles.header}>
@@ -22,15 +26,15 @@ const Header = () => {
 							navigate('/search')
 						}}
 					>
-						<img src='/public/Header icon/Search button.svg' alt='Search' />
+						<img src='/public/header-icon/Search-button.svg' alt='Search' />
 					</button>
 					<button
 						onClick={() => {
-							navigate('/profile/read-later')
+							navigate(isAuth ? '/profile/read-later' : '/auth')
 						}}
 					>
 						<img
-							src='/public/Header icon/Read later button.svg'
+							src='/public/header-icon/Read-later-button.svg'
 							alt='Read later'
 						/>
 					</button>

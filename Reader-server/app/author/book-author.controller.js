@@ -5,7 +5,7 @@ import { deleteBookId } from '../utils/delete-book-author.util.js'
 
 // @desc    Add to the author of the book
 // @route 	PATCH /api/author/book/add:id
-// @access  Private
+// @access  Admin
 export const addAuthorBook = asyncHandler(async (req, res) => {
 	const authorId = +req.params.id
 	const { bookId } = req.body
@@ -66,7 +66,7 @@ export const addAuthorBook = asyncHandler(async (req, res) => {
 
 // @desc    Delete to the author of the book
 // @route 	PATCH /api/author/book/delete/:id
-// @access  Private
+// @access  Admin
 export const deleteAuthorBook = asyncHandler(async (req, res) => {
 	const { bookId } = req.body
 	const authorId = +req.params.id

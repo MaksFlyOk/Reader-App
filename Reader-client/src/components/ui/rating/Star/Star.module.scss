@@ -1,0 +1,19 @@
+@import '/src/assets/styles/_variables.scss';
+
+.star {
+	transition: fill ease-in-out 0.5s;
+
+	> path {
+		transition: stroke ease-in-out 0.5s;
+	}
+}
+
+.star:is(:hover, :has(~ :hover)) {
+	fill: $accent;
+	cursor: pointer;
+
+	> path {
+		stroke: $accent;
+		cursor: pointer;
+	}
+}

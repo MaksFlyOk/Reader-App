@@ -1,0 +1,90 @@
+@import '/src/assets/styles/variables';
+@import '/src/assets/styles/mixins';
+
+.aboutBook {
+	display: flex;
+	justify-content: space-between;
+	margin: 48px 12px;
+	padding: 48px 24px;
+	background-color: $dark-accent;
+	border-radius: $border-radius-large;
+
+	> div {
+		display: flex;
+
+		> div:first-child {
+			width: 25vw;
+			height: 100%;
+			display: grid;
+			grid-template-columns: 1fr;
+
+			> img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				border-radius: $border-radius-little;
+				grid-row-start: 1;
+				grid-column-start: 1;
+			}
+
+			> div {
+				grid-row-start: 1;
+				grid-column-start: 1;
+				z-index: 1;
+				margin: 12px;
+				display: flex;
+				justify-content: flex-end;
+			}
+		}
+
+		> div:last-child {
+			margin-left: 48px;
+
+			> h2 {
+				font-size: 30px;
+				font-weight: lighter;
+				margin-bottom: 12px;
+			}
+
+			> h1 {
+				font-family: $accent-font;
+				font-size: 40px;
+				font-weight: 500;
+				line-height: 50px;
+				margin-bottom: 48px;
+			}
+
+			> table {
+				margin-top: 36px;
+				border-spacing: 0 12px;
+
+				> thead tr td:last-child {
+					padding-left: 24px;
+				}
+			}
+		}
+	}
+
+	> div:last-child {
+		display: flex;
+		flex-direction: column;
+		padding: 24px;
+		background-color: $bg-color;
+		color: $text-black-opacity87;
+		border-radius: $border-radius-little;
+		width: 31vw;
+		height: calc(31vw * 1.2);
+
+		> span:first-child {
+			font-family: $accent-font;
+			font-size: 30px;
+			font-weight: normal;
+			margin-bottom: 12px;
+		}
+
+		> span:last-child {
+			font-size: 20px;
+			font-weight: lighter;
+		}
+	}
+}

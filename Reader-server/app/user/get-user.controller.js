@@ -14,21 +14,8 @@ export const getProfile = asyncHandler(async (req, res) => {
 			name: true,
 			email: true,
 			profileImage: true,
-			readLater: {
-				select: {
-					id: true,
-					name: true,
-					author: {
-						select: {
-							id: true,
-							name: true
-						}
-					}
-				}
-			},
 			isAdmin: true,
-			createdAt: true,
-			BookLog: true
+			createdAt: true
 		}
 	})
 
@@ -40,13 +27,48 @@ export const getProfile = asyncHandler(async (req, res) => {
 	res.json(profile)
 })
 
+// @desc   Get a list of read later users
+// @route  GET /api/user/profile/read-later
+// @access Private
+export const getReadLaterList = asyncHandler(async (req, res) => {
+	const readLater = await prisma.user.findUnique({
+		where: {
+			id: req.user.id
+		},
+		select: {
+			id: true,
+			readLater: {
+				select: {
+					id: true,
+					name: true,
+					sumRate: true,
+					rate: true,
+					author: {
+						select: {
+							id: true,
+							name: true
+						}
+					}
+				}
+			}
+		}
+	})
+
+	if (!readLater) {
+		res.status(404)
+		throw new Error('You are not authorized!')
+	}
+
+	res.json(readLater)
+})
+
 // @desc   Get all users
 // @route  GET /api/user/all
-// @access Private
+// @access Admin
 export const getAllUser = asyncHandler(async (req, res) => {
 	const users = await prisma.user.findMany({
 		orderBy: {
-			createdAt: 'asc'
+			createdAt: 'desc'
 		},
 		select: {
 			id: true,

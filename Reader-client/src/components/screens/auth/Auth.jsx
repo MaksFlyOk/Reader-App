@@ -3,7 +3,9 @@ import Button from '../../ui/button/Button'
 import Field from '../../ui/field/Field'
 import Loader from '../../ui/loader/Loader'
 import Logo from '../../ui/logo/Logo'
+
 import styles from './Auth.module.scss'
+
 import { useAuthPage } from './useAuthPage'
 
 const Auth = () => {
@@ -104,7 +106,7 @@ const Auth = () => {
 										>
 											{isAuthForm === 'login' ? 'Sign up' : 'Sign in'}
 											<img
-												src='/public/Button arrow.svg'
+												src='/public/button/Button-arrow.svg'
 												alt='Button arrow'
 												style={
 													isAuthForm === 'register'

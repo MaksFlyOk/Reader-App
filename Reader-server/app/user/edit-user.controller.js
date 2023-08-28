@@ -46,6 +46,6 @@ export const editNamePassword = asyncHandler(async (req, res) => {
 		res.json({ user, message: 'Password has been successfully changed' })
 	} else {
 		res.status(401)
-		throw new Error('Email and password are not correct!')
+		throw new Error('Password are not correct!')
 	}
 })

@@ -1,10 +1,13 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
+import { useContextStates } from '../hooks/useContextStates'
+
 import NotFound from '../components/screens/not-found/NotFound'
-import { useAuth } from '../hooks/useAuth'
+
 import { routes } from './routes.data'
 
 const Router = () => {
-	const { isAuth } = useAuth()
+	const { isAuth } = useContextStates()
 
 	return (
 		<BrowserRouter>

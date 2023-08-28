@@ -2,8 +2,8 @@ import asyncHandler from 'express-async-handler'
 import { prisma } from '../prisma.js'
 
 // @desc    Get chapters
-// @route 	POST /api/chapters
-// @access  Private
+// @route 	GET /api/chapters
+// @access  Admin
 export const getChapters = asyncHandler(async (req, res) => {
 	const chapters = await prisma.chapter.findMany({
 		orderBy: {
@@ -27,7 +27,7 @@ export const getChapters = asyncHandler(async (req, res) => {
 
 // @desc    Delete chapter
 // @route 	POST /api/chapter/delete/:id
-// @access  Private
+// @access  Admin
 export const deleteChapterById = asyncHandler(async (req, res) => {
 	const chapter = await prisma.chapter.delete({
 		where: {

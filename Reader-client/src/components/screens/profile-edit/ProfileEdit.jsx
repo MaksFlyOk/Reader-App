@@ -2,19 +2,23 @@ import Cookies from 'js-cookie'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { TOKEN } from '../../../app.constants'
-import { useAdmin } from '../../../hooks/useAdmin'
-import { useAuth } from '../../../hooks/useAuth'
-import { useProfile } from '../../../hooks/useProfile'
+
+import { useContextStates } from '../../../hooks/useContextStates'
+import { useProfile } from '../../../hooks/user/useProfile'
+
 import authService from '../../../services/auth.service'
 import fileService from '../../../services/file/file.service'
 import editUserService from '../../../services/user/edit-user.service'
+
 import Button from '../../ui/button/Button'
 import Field from '../../ui/field/Field'
 import DragAndDrop from '../../ui/field/drag-and-drop/DragAndDrop'
 import Loader from '../../ui/loader/Loader'
 import Logo from '../../ui/logo/Logo'
+
 import styles from './ProfileEdit.module.scss'
+
+import { TOKEN } from '../../../app.constants'
 
 const ProfileEdit = () => {
 	const {
@@ -30,8 +34,7 @@ const ProfileEdit = () => {
 	})
 
 	const { data, isLoading, refetch } = useProfile()
-	const { setIsAuth } = useAuth()
-	const { setIsAdmin } = useAdmin()
+	const { setIsAuth, setIsAdmin, setUserId } = useContextStates()
 	const navigate = useNavigate()
 
 	const [isConfirmShow, setConfirmShow] = useState(false)
@@ -61,6 +64,7 @@ const ProfileEdit = () => {
 		authService.deleteUser()
 		Cookies.remove(TOKEN)
 
+		setUserId(undefined)
 		setIsAuth(false)
 		setIsAdmin(false)
 		navigate('/auth')
@@ -97,7 +101,7 @@ const ProfileEdit = () => {
 									src={
 										data?.profileImage
 											? import.meta.env.VITE_SERVER_URL + data?.profileImage
-											: '/public/Profile.jpg'
+											: '/public/profile/Profile.jpg'
 									}
 									alt='Profile image'
 								/>
@@ -105,7 +109,7 @@ const ProfileEdit = () => {
 							<div>
 								<form onSubmit={handleSubmit(onSubmit)}>
 									<Field
-										styleInput='whiteFieldSmall'
+										styleInput='fieldSmall'
 										error={errors?.name?.message}
 										name='name'
 										register={register}
@@ -124,7 +128,7 @@ const ProfileEdit = () => {
 										placeholder={`Name (${data?.name})`}
 									/>
 									<Field
-										styleInput='whiteFieldSmall'
+										styleInput='fieldSmall'
 										error={errors?.password?.message}
 										name='password'
 										register={register}
@@ -143,7 +147,7 @@ const ProfileEdit = () => {
 										placeholder='Password'
 									/>
 									<Field
-										styleInput='whiteFieldSmall'
+										styleInput='fieldSmall'
 										error={errors?.newPassword?.message}
 										name='newPassword'
 										register={register}

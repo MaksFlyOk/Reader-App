@@ -1,8 +1,11 @@
 import AboutUs from '../components/screens/about-us/AboutUs'
 import AdminPanel from '../components/screens/admin-panel/AdminPanel'
 import Auth from '../components/screens/auth/Auth'
+import Author from '../components/screens/author/Author'
 import Authors from '../components/screens/authors/Authors'
+import Book from '../components/screens/book/Book'
 import Books from '../components/screens/books/Books'
+import Chapter from '../components/screens/chapter/Chapter'
 import Home from '../components/screens/home/Home'
 import ProfileEdit from '../components/screens/profile-edit/ProfileEdit'
 import Profile from '../components/screens/profile/Profile'
@@ -26,6 +29,11 @@ export const routes = [
 		isAuth: false
 	},
 	{
+		path: '/author/:id',
+		component: Author,
+		isAuth: false
+	},
+	{
 		path: '/about-us',
 		component: AboutUs,
 		isAuth: false
@@ -33,6 +41,16 @@ export const routes = [
 	{
 		path: '/books',
 		component: Books,
+		isAuth: false
+	},
+	{
+		path: '/book/:id',
+		component: Book,
+		isAuth: false
+	},
+	{
+		path: 'book/:id/chapter/:id',
+		component: Chapter,
 		isAuth: false
 	},
 	{

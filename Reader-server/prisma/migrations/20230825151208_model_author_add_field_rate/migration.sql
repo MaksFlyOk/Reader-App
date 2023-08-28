@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Author" ADD COLUMN     "rate" DECIMAL(65,30) NOT NULL DEFAULT 0;

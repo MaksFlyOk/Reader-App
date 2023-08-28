@@ -1,0 +1,184 @@
+@import '/src/assets/styles/variables';
+@import '/src/assets/styles/mixins';
+
+.text {
+	margin: 0px 12px 48px 12px;
+	padding: 24px 48px;
+	background-color: $dark-accent;
+	border-radius: $border-radius-large;
+
+	> div {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		background-color: $bg-color;
+		border-radius: $border-radius-little;
+		padding: 15px 24px;
+
+		> h1 {
+			font-size: 40px;
+			font-weight: bold;
+			font-family: $accent-font;
+			color: $dark-accent;
+
+			img {
+				margin-left: 12px;
+				transform: translateX(-20px);
+				opacity: 0;
+				transition:
+					transform 0.3s ease-in-out,
+					opacity 0.3s ease-in-out;
+			}
+		}
+
+		> h1::after {
+			background-color: $dark-accent;
+			display: block;
+			content: '';
+			height: 2px;
+			width: 0%;
+			-webkit-transition: width 0.3s ease-in-out;
+			-moz--transition: width 0.3s ease-in-out;
+			transition: width 0.3s ease-in-out;
+		}
+
+		> h1:hover {
+			cursor: pointer;
+		}
+		> h1:hover,
+		> h1:focus {
+			img {
+				transform: translateX(0);
+				opacity: 1;
+			}
+		}
+		> h1:hover::after,
+		> h1:focus::after {
+			width: 100%;
+		}
+		> h1:active {
+			img {
+				transform: translateX(10px);
+			}
+		}
+	}
+}
+
+.chapters {
+	margin: 0px 12px 48px 12px;
+	padding: 24px 48px;
+	background-color: $dark-accent;
+	border-radius: $border-radius-large;
+	gap: 24px;
+
+	> h1 {
+		font-size: 60px;
+		font-weight: normal;
+		font-family: $accent-font;
+		margin-bottom: 24px;
+	}
+
+	> div {
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+
+		> div {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			background-color: $bg-color;
+			border-radius: $border-radius-little;
+			padding: 15px 24px;
+
+			> h1 {
+				font-size: 40px;
+				font-weight: bold;
+				font-family: $accent-font;
+				color: $dark-accent;
+
+				img {
+					margin-left: 12px;
+					transform: translateX(-20px);
+					opacity: 0;
+					transition:
+						transform 0.3s ease-in-out,
+						opacity 0.3s ease-in-out;
+				}
+			}
+
+			> h1::after {
+				background-color: $dark-accent;
+				display: block;
+				content: '';
+				height: 2px;
+				width: 0%;
+				-webkit-transition: width 0.3s ease-in-out;
+				-moz--transition: width 0.3s ease-in-out;
+				transition: width 0.3s ease-in-out;
+			}
+
+			> h1:hover {
+				cursor: pointer;
+			}
+			> h1:hover,
+			> h1:focus {
+				img {
+					transform: translateX(0);
+					opacity: 1;
+				}
+			}
+			> h1:hover::after,
+			> h1:focus::after {
+				width: 100%;
+			}
+			> h1:active {
+				img {
+					transform: translateX(10px);
+				}
+			}
+		}
+	}
+}
+
+.buttonComplete {
+	@include pseudo-button-span;
+	background-color: $dark-accent;
+	color: $accent;
+	display: flex;
+	align-items: center;
+
+	> svg {
+		margin-left: 12px;
+		transition: transform ease-in-out 1s;
+	}
+}
+
+.buttonComplete:hover,
+.buttonComplete:focus {
+	box-shadow: 5px 5px $accent;
+}
+.buttonComplete:active {
+	@include active;
+}
+
+.buttonNotComplete {
+	@include pseudo-button-span;
+	background-color: $accent;
+	color: $dark-accent;
+	display: flex;
+	align-items: center;
+
+	> svg {
+		margin-left: 12px;
+		transition: transform ease-in-out 1s;
+	}
+}
+
+.buttonNotComplete:hover,
+.buttonNotComplete:focus {
+	@include hover-focus;
+}
+.buttonNotComplete:active {
+	@include active;
+}

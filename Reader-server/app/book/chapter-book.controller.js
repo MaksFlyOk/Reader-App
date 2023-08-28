@@ -3,7 +3,7 @@ import { prisma } from '../prisma.js'
 
 // @desc    Add new chapter to the book
 // @route 	PATCH /api/book/chapter/add/:id
-// @access  Private
+// @access  Admin
 export const addNewChapterToBook = asyncHandler(async (req, res) => {
 	const chapters = req.body
 	const bookId = +req.params.id
@@ -66,7 +66,7 @@ export const addNewChapterToBook = asyncHandler(async (req, res) => {
 
 // @desc    Delete chapter to the book
 // @route 	PATCH /api/book/chapter/delete/:id
-// @access  Private
+// @access 	Admin
 export const deleteChapterToBook = asyncHandler(async (req, res) => {
 	const { delChapter } = req.body
 	const bookId = +req.params.id

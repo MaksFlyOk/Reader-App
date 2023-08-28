@@ -12,15 +12,30 @@ import {
 	addNewChapterToBook,
 	deleteChapterToBook
 } from './chapter-book.controller.js'
-import { getBookById, getBooks } from './get-books.controller.js'
+import {
+	getBookById,
+	getBookByIdAuth,
+	getBooksByCategory,
+	getBooksByCreatedAt,
+	getBooksByRate,
+	getLastCreatedBook
+} from './get-books.controller.js'
 
 const router = express.Router()
 
 router.route('/').post(admin, addNewBook)
 
-router.route('/all').all(getBooks)
+router.route('/last').get(getLastCreatedBook)
+
+router.route('/all/created-at').get(getBooksByCreatedAt)
 
 router.route('/:id').get(getBookById)
+
+router.route('/auth/:id').get(protect, getBookByIdAuth)
+
+router.route('/all/rating').get(getBooksByRate)
+
+router.route('/category').all(getBooksByCategory)
 
 router.route('/delete/:id').delete(admin, deleteBookById)
 

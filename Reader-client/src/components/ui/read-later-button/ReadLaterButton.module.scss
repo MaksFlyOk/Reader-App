@@ -1,0 +1,27 @@
+@import '/src/assets/styles/variables';
+@import '/src/assets/styles/mixins';
+
+.readLaterButton {
+	background-color: $dark-accent;
+	width: 40px;
+	height: 40px;
+	border-radius: $circle-radius;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	transition: transform ease-in-out 0.3s;
+
+	> img {
+		background-repeat: no-repeat;
+	}
+}
+
+.readLaterButton:hover,
+.readLaterButton:focus {
+	transform: scale(1.05);
+}
+
+.readLaterButton:active {
+	transform: scale(1);
+}

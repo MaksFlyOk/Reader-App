@@ -1,0 +1,13 @@
+@import '/src/assets/styles/_variables.scss';
+
+.infoSection {
+	margin: 0 12px 48px 12px;
+	border-radius: $border-radius-large;
+	display: flex;
+	flex-direction: row;
+	gap: 24px;
+
+	> section {
+		width: calc((100vw - 24px - (12px * 2)) / 2);
+	}
+}

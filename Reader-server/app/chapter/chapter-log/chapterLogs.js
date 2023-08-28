@@ -3,7 +3,7 @@ import { prisma } from '../../prisma.js'
 
 // @desc    Get chapters logs
 // @route 	GET /api/chapters/log/all
-// @access  Private
+// @access  Admin
 export const getChaptersLogs = asyncHandler(async (req, res) => {
 	const chaptersLogs = await prisma.chapterLog.findMany({
 		orderBy: {

@@ -1,6 +1,9 @@
 import asyncHandler from 'express-async-handler'
 import { prisma } from '../prisma.js'
 
+// @desc   Upload user image
+// @route  PATCH /api/upload/profileImage
+// @access Private
 export const uploadUserProfileImage = asyncHandler(async (req, res) => {
 	try {
 		if (!req.files) {

@@ -1,0 +1,105 @@
+@import '/src/assets/styles/variables';
+
+.wrapper {
+	width: 100%;
+	height: 100%;
+	padding: 48px 0px 0px 24px;
+	background-color: $dark-accent;
+	border-radius: $border-radius-large;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.lastBook {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	padding: 0 48px 48px 0;
+
+	> div:first-child {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		> div {
+			> h1 {
+				font-size: 50px;
+				line-height: 46px;
+				font-weight: normal;
+				font-family: $accent-font;
+			}
+
+			> h2 {
+				font-size: 30px;
+				font-weight: lighter;
+				font-family: $default-font;
+				margin-bottom: 12px;
+			}
+
+			> span {
+				font-size: 20px;
+				font-weight: lighter;
+				font-family: $default-font;
+			}
+		}
+	}
+
+	> div:last-child {
+		> div {
+			width: 13vw;
+			height: calc(13vw * 1.5);
+			margin-left: 48px;
+
+			> img {
+				height: 100%;
+				border-radius: $border-radius-little;
+				object-fit: cover;
+			}
+		}
+	}
+}
+
+.hero {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	overflow: hidden;
+	height: 100%;
+
+	> div:first-child {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		margin: 0 calc(100% / 2.6) 48px 0;
+
+		> div {
+			> h1 {
+				font-size: 50px;
+				line-height: 46px;
+				font-weight: normal;
+				font-family: $accent-font;
+				margin-bottom: 12px;
+			}
+
+			> span {
+				display: block;
+				font-size: 20px;
+				font-weight: lighter;
+				font-family: $default-font;
+				width: calc(100% - 48px);
+			}
+		}
+	}
+
+	> div:last-child {
+		width: 25vw;
+		position: absolute;
+		transform: translateX(180px);
+		background-color: transparent;
+
+		> img {
+			width: 100%;
+		}
+	}
+}

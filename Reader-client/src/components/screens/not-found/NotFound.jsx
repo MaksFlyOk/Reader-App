@@ -1,10 +1,13 @@
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../../../hooks/useAuth'
+
+import { useContextStates } from '../../../hooks/useContextStates'
+
 import Button from '../../ui/button/Button'
+
 import styles from './NotFound.module.scss'
 
 const NotFound = () => {
-	const { isAuth } = useAuth()
+	const { isAuth } = useContextStates()
 	const navigate = useNavigate()
 
 	return (
@@ -14,8 +17,8 @@ const NotFound = () => {
 					<span className={styles.typewriter}></span>
 				</h1>
 				<p>
-					If you ended up here, you may have tried to go where you shouldn't
-					have....
+					{`If you ended up here, you may have tried to go where you shouldn't
+					have....`}
 				</p>
 				<Button clickHandler={() => navigate(isAuth ? '/profile' : '/')}>
 					Retry

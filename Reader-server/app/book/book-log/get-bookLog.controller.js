@@ -10,7 +10,11 @@ export const getBookLogById = asyncHandler(async (req, res) => {
 			id: +req.params.id
 		},
 		include: {
-			chaptersLogs: true
+			chaptersLogs: {
+				orderBy: {
+					id: 'desc'
+				}
+			}
 		}
 	})
 

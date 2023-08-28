@@ -3,9 +3,10 @@
 
 .wrapper {
 	background-color: $dark-accent;
+	padding-top: 15px;
 
 	> button {
-		margin: 15px 24px;
+		margin: 0 24px 15px 24px;
 	}
 
 	> div {

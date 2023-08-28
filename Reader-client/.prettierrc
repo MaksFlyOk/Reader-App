@@ -11,9 +11,14 @@
 	"importOrder": [
 		"<THIRD_PARTY_MODULES>",
 		"/hooks/",
-		"/screens/",
+		"/services/",
+		"/utils/",
+		"/ui/",
 		"/components/",
+		"/screens/",
+		".scss",
 		"^../(.*)",
 		"^./(.*)"
-	]
+	],
+	"plugins": ["@trivago/prettier-plugin-sort-imports"]
 }

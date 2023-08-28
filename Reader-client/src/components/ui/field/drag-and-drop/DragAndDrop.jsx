@@ -1,7 +1,28 @@
+import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
-import { fileFieldValidation } from '../../../../utils/fileFieldValidation.util'
+
+import { fileFieldValidation } from '../../../../utils/file/fileFieldValidation.util'
+
 import styles from './DragAndDrop.module.scss'
 
+/**
+ * Drag&Drop component. These are "file" type fields, with Drag&Drop functionality.
+ * @component
+ * @typedef PropType
+ * @property {function} register - This is a field registration function, it is swiped from react-hook-from.
+ * @property {string} name - This is the name of the field.
+ * @property {string} error - This is a validation error, thrown from react-hook-form.
+ * @property {object} options - These are validation and option settings, swiped according to the react-hook-form documentation.
+ * @property {function} setValue - This is a feature pulled from react-hook-form. It sets a specific field value.
+ * @property {function} setError - This is a feature pulled from react-hook-form. It sets a specific field error.
+ * @property {object} fieldState - This is an object swiped from react-hook-form. It stores field state data.
+ * @property {string} styleInput - This is the field style, the default is fileField is the standard field, fileFieldSmall is the field with reduced paddings.
+ * @property {string} type - This is the type of the input[type='type'] field.
+ * @property {object} rest - This is all other required data for which no variables have been set.
+ *
+ * @param {PropType} props
+ * @returns JSX component Drag&Drop.
+ */
 const DragAndDrop = ({
 	register,
 	name,
@@ -88,6 +109,17 @@ const DragAndDrop = ({
 			</div>
 		</>
 	)
+}
+
+DragAndDrop.propTypes = {
+	register: PropTypes.func,
+	name: PropTypes.string,
+	error: PropTypes.string,
+	options: PropTypes.object,
+	setValue: PropTypes.func,
+	setError: PropTypes.func,
+	fieldState: PropTypes.object,
+	styleInput: PropTypes.oneOf(['fileField', 'fileFieldSmall'])
 }
 
 export default DragAndDrop

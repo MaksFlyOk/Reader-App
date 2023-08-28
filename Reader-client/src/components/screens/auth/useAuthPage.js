@@ -2,15 +2,16 @@ import { useMutation } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { $axios } from '../../../api'
-import { useAdmin } from '../../../hooks/useAdmin'
-import { useAuth } from '../../../hooks/useAuth'
+
+import { useContextStates } from '../../../hooks/useContextStates'
+
 import { setToken } from '../../../utils/setToken.util'
+
+import { $axios } from '../../../api'
 
 export const useAuthPage = () => {
 	const [isAuthForm, setAuth] = useState('login')
-	const { isAuth, setIsAuth } = useAuth()
-	const { setIsAdmin } = useAdmin()
+	const { isAuth, setIsAuth, setIsAdmin } = useContextStates()
 	const navigate = useNavigate()
 
 	const {

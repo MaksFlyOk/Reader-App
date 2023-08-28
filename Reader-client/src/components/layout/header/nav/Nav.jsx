@@ -1,6 +1,17 @@
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+
 import styles from './Nav.module.scss'
 
+/**
+ * Navigation component.
+ * @component
+ * @typedef PropType
+ * @property {array.<string>} navArr - This is an array of navigation elements.
+ *
+ * @param {PropType} props
+ * @returns JSX component Nav.
+ */
 const Nav = ({ navArr }) => {
 	return (
 		<nav className={styles.nav}>
@@ -11,6 +22,10 @@ const Nav = ({ navArr }) => {
 			))}
 		</nav>
 	)
+}
+
+Nav.propTypes = {
+	navArr: PropTypes.arrayOf(PropTypes.object)
 }
 
 export default Nav

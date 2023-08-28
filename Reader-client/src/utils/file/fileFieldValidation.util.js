@@ -1,10 +1,10 @@
 /**
  * This function checks the validity of the data we take from the input[type="file"] field. The file must be a single file, not more than 5mb in size and in JPG format.
- * @param {String} type - This is the type of data to be checked for Drag&Drop, takes the values: drop - to check onDrop, input - to check classic input.
- * @param {String} inputName - This is the name of the field.
- * @param {Event} e - Event from which we take data.
- * @param {Function} setFileName - This is the function that sets the name in the input field, it's a function from React UseState.
- * @param {Function} setError - This is the function that sets the error in the input field, it is a function from react-hook-form.
+ * @param {string} type - This is the type of data to be checked for Drag&Drop, takes the values: drop - to check onDrop, input - to check classic input.
+ * @param {string} inputName - This is the name of the field.
+ * @param {event} e - Event from which we take data.
+ * @param {function} setFileName - This is the function that sets the name in the input field, it's a function from React UseState.
+ * @param {function} setError - This is the function that sets the error in the input field, it is a function from react-hook-form.
  * @returns {FileList} Returns the file.
  */
 export const fileFieldValidation = (

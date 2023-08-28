@@ -1,10 +1,23 @@
+import PropTypes from 'prop-types'
+
 import styles from './Loader.module.scss'
 
+/**
+ * Loader component.
+ * @component
+ * @typedef PropType
+ * @property {string} width - Sets the width of the loader.
+ * @property {string} height - Sets the height of the loader.
+ * @property {string} color - Sets the loader color, by default it is Accent(#cdb4db), there are also: Black(#2a2c2e), White(#f6f4f0).
+ *
+ * @param {PropType} props
+ * @returns JSX component Loader.
+ */
 const Loader = ({ width = '100%', height = '100%', color = 'Accent' }) => {
 	return (
 		<svg
 			className={styles.svgLogoAnimation}
-			style={{ width: width, height: height }}
+			style={{ width: width, height: height, margin: 'auto auto' }}
 			width='54'
 			height='54'
 			viewBox='0 0 54 54'
@@ -19,6 +32,12 @@ const Loader = ({ width = '100%', height = '100%', color = 'Accent' }) => {
 			></path>
 		</svg>
 	)
+}
+
+Loader.propTypes = {
+	width: PropTypes.string,
+	height: PropTypes.string,
+	color: PropTypes.oneOf(['Accent', 'Black', 'White'])
 }
 
 export default Loader

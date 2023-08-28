@@ -1,9 +1,9 @@
 import asyncHandler from 'express-async-handler'
 import { prisma } from '../prisma.js'
 
-// @desc   Login user
+// @desc   Granting admin rights
 // @route  Patch /api/admin/grant/:id
-// @access Public
+// @access Public && If there's no admin || Admin && If there's even one admin
 export const grantAdmin = asyncHandler(async (req, res) => {
 	const userId = +req.params.id
 

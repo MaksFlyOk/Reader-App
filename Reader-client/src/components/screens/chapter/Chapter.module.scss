@@ -1,0 +1,115 @@
+@import '/src/assets/styles/variables';
+@import '/src/assets/styles/mixins';
+
+.textFrame {
+	width: 100%;
+
+	> div:nth-child(2) {
+		margin: 0 12px;
+		padding: 24px;
+		border-radius: $border-radius-large;
+		background-color: $dark-accent;
+
+		> p {
+			text-indent: 48px;
+			margin-bottom: 12px;
+			font-size: 24px;
+			font-weight: normal;
+		}
+	}
+
+	> footer {
+		margin-top: 48px;
+	}
+}
+
+.header {
+	position: sticky;
+	background: repeating-linear-gradient(
+		0deg,
+		$dark-accent,
+		$dark-accent 20%,
+		$bg-color 20%,
+		$bg-color 100%
+	);
+	overflow: hidden;
+	padding-top: 20px;
+	margin: 0 12px 48px 12px;
+	border-radius: 0 0 $border-radius-large $border-radius-large;
+	top: 0;
+	left: 0;
+
+	div {
+		position: relative;
+		color: $bg-color;
+		background-color: $dark-accent;
+		border-radius: $border-radius-large;
+		overflow: hidden;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+
+		> span {
+			font-size: 40px;
+			margin: 12px 24px;
+		}
+
+		> h1 {
+			margin: 12px 24px;
+			width: max-content;
+			font-size: 40px;
+			font-weight: bold;
+			font-family: $accent-font;
+			color: $bg-color;
+
+			img {
+				margin-left: 12px;
+				transform: translateX(-20px);
+				opacity: 0;
+				transition:
+					transform 0.3s ease-in-out,
+					opacity 0.3s ease-in-out;
+			}
+		}
+
+		> h1::after {
+			background-color: $bg-color;
+			display: block;
+			content: '';
+			height: 2px;
+			width: 0%;
+			-webkit-transition: width 0.3s ease-in-out;
+			-moz--transition: width 0.3s ease-in-out;
+			transition: width 0.3s ease-in-out;
+		}
+
+		> h1:hover {
+			cursor: pointer;
+		}
+		> h1:hover,
+		> h1:focus {
+			img {
+				transform: translateX(0);
+				opacity: 1;
+			}
+		}
+		> h1:hover::after,
+		> h1:focus::after {
+			width: 100%;
+		}
+		> h1:active {
+			img {
+				transform: translateX(10px);
+			}
+		}
+
+		> div {
+			position: absolute;
+			bottom: 0;
+			height: 5px;
+			background-color: $accent;
+			transition: width ease-in-out 1s;
+		}
+	}
+}

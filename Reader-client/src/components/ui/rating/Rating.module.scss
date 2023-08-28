@@ -1,0 +1,117 @@
+@import '/src/assets/styles/variables';
+@import '/src/assets/styles/ratingAnimation';
+
+.passive {
+	width: max-content;
+	display: flex;
+	gap: 12px;
+	padding: 10px 14px;
+	font-size: 20px;
+	font-weight: lighter;
+	border: 2px solid $dark-accent;
+	color: $dark-accent;
+	border-radius: 16px;
+	font-family: $accent-font;
+}
+
+.passiveForBook {
+	width: max-content;
+	display: flex;
+	gap: 12px;
+	font-size: 20px;
+	font-weight: lighter;
+	color: $bg-color;
+	font-family: $accent-font;
+}
+
+.active {
+	width: max-content;
+	font-size: 20px;
+
+	font-weight: lighter;
+	color: $bg-color;
+	font-family: $accent-font;
+
+	> div {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+}
+
+.starShowRateInitial {
+	display: flex;
+	gap: 12px;
+
+	> span:last-child {
+		text-decoration: underline;
+	}
+}
+.starShowRateEnabled {
+	display: flex;
+	gap: 12px;
+	transition: all ease-in-out 1s;
+
+	> span:last-child {
+		text-decoration: underline;
+	}
+
+	animation: $showStarRateEnabled;
+}
+.starShowRateDisabled {
+	display: flex;
+	gap: 12px;
+
+	> span:last-child {
+		text-decoration: underline;
+	}
+
+	animation: $showStarRateDisabled;
+}
+
+.starShowInitial {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 8px;
+
+	@for $i from 1 through 5 {
+		> svg:nth-child(#{$i}) {
+			@if ($i != 1) {
+				opacity: 0;
+			} @else {
+				animation: $starAnimationInitialBreathing;
+			}
+
+			grid-row-start: 1;
+			grid-column-start: 1;
+		}
+	}
+}
+.starShowEnabled {
+	display: grid;
+	gap: 8px;
+
+	@for $i from 1 through length($showStarEnabledArray) {
+		> svg:nth-child(#{$i}) {
+			grid-row-start: 1;
+			grid-column-start: $i;
+			animation: nth($showStarEnabledArray, $i);
+		}
+	}
+}
+.starShowDisabled {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 8px;
+
+	@for $i from 1 through 5 {
+		> svg:nth-child(#{$i}) {
+			@if ($i != 1) {
+				opacity: 0;
+			}
+			grid-row-start: 1;
+			grid-column-start: 1;
+			animation: nth($showStarDisabledArray, $i);
+		}
+	}
+}
