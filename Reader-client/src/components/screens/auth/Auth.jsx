@@ -12,7 +12,7 @@ const Auth = () => {
 		isLoading,
 		handleSubmit,
 		onSubmit,
-		isAuthForm,
+		authFormState,
 		errors,
 		register,
 		setAuth,
@@ -33,7 +33,7 @@ const Auth = () => {
 						<form onSubmit={handleSubmit(onSubmit)}>
 							<div
 								style={
-									isAuthForm === 'register'
+									authFormState === 'register'
 										? { display: 'block' }
 										: { display: 'none' }
 								}
@@ -53,7 +53,7 @@ const Auth = () => {
 											value: 16,
 											message: 'Maximum number of character for username is 16'
 										},
-										disabled: isAuthForm === 'login' ? true : false
+										disabled: authFormState === 'login' ? true : false
 									}}
 									type='text'
 									placeholder='Name'
@@ -94,28 +94,28 @@ const Auth = () => {
 										handleSubmit(onSubmit)
 									}}
 								>
-									{isAuthForm === 'login' ? 'Sign in' : 'Sign up'}
+									{authFormState === 'login' ? 'Sign in' : 'Sign up'}
 								</Button>
 								<span
 									disabled={isLoading}
 									onClick={() =>
-										setAuth(isAuthForm === 'login' ? 'register' : 'login')
+										setAuth(authFormState === 'login' ? 'register' : 'login')
 									}
 									tabIndex={0}
 									onKeyDown={event => {
 										if (event.key === 'Enter') {
-											setAuth(isAuthForm === 'login' ? 'register' : 'login')
+											setAuth(authFormState === 'login' ? 'register' : 'login')
 
 											setFocus('email')
 										}
 									}}
 								>
-									{isAuthForm === 'login' ? 'Sign up' : 'Sign in'}
+									{authFormState === 'login' ? 'Sign up' : 'Sign in'}
 									<img
 										src='/public/button/Button-arrow.svg'
 										alt='Button arrow'
 										style={
-											isAuthForm === 'register'
+											authFormState === 'register'
 												? { transform: 'rotate(-90deg)' }
 												: { transform: 'rotate(0deg)' }
 										}

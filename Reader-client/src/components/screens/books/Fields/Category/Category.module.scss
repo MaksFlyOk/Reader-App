@@ -48,7 +48,7 @@
 }
 
 .categories {
-	z-index: 100;
+	z-index: $z-index-over;
 	position: absolute;
 	margin-top: 12px;
 	display: flex;

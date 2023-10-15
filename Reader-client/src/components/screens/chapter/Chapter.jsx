@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useGetBookByIdNotAuth } from '../../../hooks/book/useGetBookByIdNotAuth'
+import { useAlert } from '../../../hooks/useAlert'
 
 import { getFilePath } from '../../../utils/file/getFile.util'
 import { onKeyDownHandler_Enter } from '../../../utils/onKeyDownHandler_Enter'
@@ -61,15 +62,7 @@ const Chapter = () => {
 		}
 	}, [data, isLoading])
 
-	useEffect(() => {
-		if (error) {
-			setAlertShow(true)
-			let time = setTimeout(() => {
-				setAlertShow(false)
-				clearTimeout(time)
-			}, 4000)
-		}
-	}, [error])
+	useAlert(error, setAlertShow)
 
 	/**
 	 * This function handles the Listener ("Scroll") to render the progress bar.

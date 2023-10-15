@@ -20,7 +20,7 @@
 	> div:first-child {
 		position: sticky;
 		top: 0;
-		z-index: 100;
+		z-index: $z-index-over;
 		display: flex;
 		flex-direction: row;
 		gap: 48px;

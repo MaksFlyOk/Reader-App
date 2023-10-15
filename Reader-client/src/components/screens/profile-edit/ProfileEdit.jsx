@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
+import { useAlert } from '../../../hooks/useAlert'
 import { useContextStates } from '../../../hooks/useContextStates'
 import { useGetProfile } from '../../../hooks/user/useGetProfile'
 
@@ -11,6 +12,7 @@ import authService from '../../../services/auth.service'
 import fileService from '../../../services/file/file.service'
 import editUserService from '../../../services/user/edit-user.service'
 
+import Alert from '../../ui/alert/Alert'
 import Button from '../../ui/button/Button'
 import Field from '../../ui/field/Field'
 import DragAndDrop from '../../ui/field/drag-and-drop/DragAndDrop'
@@ -32,6 +34,7 @@ const ProfileEdit = () => {
 	} = useForm({
 		mode: 'onChange'
 	})
+	const [isAlertShow, setAlertShow] = useState(false)
 
 	const { data, isFetching } = useGetProfile()
 	const { setIsAuth, setIsAdmin } = useContextStates()
@@ -43,7 +46,11 @@ const ProfileEdit = () => {
 	 */
 	const [isConfirmShow, setConfirmShow] = useState(false)
 
-	const { mutateAsync, isLoading: isLoadingMutate } = useMutation(
+	const {
+		mutateAsync,
+		isLoading: isLoadingMutate,
+		error
+	} = useMutation(
 		/**
 		 * This asynchronous mutation sends a request to the server using axios to change the name, password, or avatar of an authorized user.
 		 * @param {object} data
@@ -68,6 +75,9 @@ const ProfileEdit = () => {
 			reset()
 		},
 		{
+			onError: () => {
+				reset()
+			},
 			onSuccess: () => {
 				queryClient.invalidateQueries(['get profile'])
 			}
@@ -87,8 +97,13 @@ const ProfileEdit = () => {
 		navigate('/auth')
 	}
 
+	useAlert(error, setAlertShow)
+
 	return (
 		<>
+			{error && isAlertShow ? (
+				<Alert type='error'>{error?.response?.data?.message}</Alert>
+			) : null}
 			<div className={styles.wrapper}>
 				<div>
 					<Logo />

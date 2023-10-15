@@ -1,9 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
+
+import { useAlert } from '../../../hooks/useAlert'
 
 import { $axios } from '../../../api'
 
 export const useReadLaterButton = () => {
+	const [isAlertShow, setAlertShow] = useState(false)
+
 	const queryClient = useQueryClient()
 
 	const { mutate, isLoading, error } = useMutation(
@@ -30,17 +34,7 @@ export const useReadLaterButton = () => {
 		}
 	)
 
-	const [isAlertShow, setAlertShow] = useState(false)
-
-	useEffect(() => {
-		if (error) {
-			setAlertShow(true)
-			let time = setTimeout(() => {
-				setAlertShow(false)
-				clearTimeout(time)
-			}, 4000)
-		}
-	}, [error])
+	useAlert(error, setAlertShow)
 
 	return useMemo(
 		() => ({

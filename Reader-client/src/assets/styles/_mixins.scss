@@ -46,7 +46,7 @@
 @mixin input-checkbox($style) {
 	> input {
 		position: absolute;
-		z-index: -1;
+		z-index: $z-index-hidden;
 		opacity: 0;
 	}
 

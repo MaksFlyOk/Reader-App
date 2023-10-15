@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
+import { useAlert } from '../../../hooks/useAlert'
 import { useContextStates } from '../../../hooks/useContextStates'
 
 import { setToken } from '../../../utils/setToken.util'
@@ -83,15 +84,7 @@ export const useAuthPage = () => {
 		if (isAuth) navigate('/profile')
 	})
 
-	useEffect(() => {
-		if (error) {
-			setAlertShow(true)
-			let time = setTimeout(() => {
-				setAlertShow(false)
-				clearTimeout(time)
-			}, 4000)
-		}
-	}, [error])
+	useAlert(error, setAlertShow)
 
 	return useMemo(
 		() => ({

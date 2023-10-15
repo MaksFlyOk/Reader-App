@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { useGetCategoriesAndGenres } from '../../../hooks/book/useGetCategoriesAndGenres'
+import { useAlert } from '../../../hooks/useAlert'
 import { useSetScrollHandlerEffect } from '../../../hooks/useSetEffectScrollHandler'
 
 import getBook from '../../../services/book/getBook'
@@ -176,15 +177,7 @@ const Books = () => {
 		}
 	)
 
-	useEffect(() => {
-		if (queryError) {
-			setAlertShow(true)
-			let time = setTimeout(() => {
-				setAlertShow(false)
-				clearTimeout(time)
-			}, 4000)
-		}
-	}, [queryError])
+	useAlert(queryError, setAlertShow)
 
 	useEffect(() => {
 		setValueRange({

@@ -19,7 +19,7 @@
 		border-radius: $border-radius-little;
 
 		> button {
-			z-index: 2;
+			z-index: $z-index-level-2;
 		}
 	}
 }
@@ -51,7 +51,7 @@
 			flex-direction: column;
 
 			> div:not(:nth-child(4)) {
-				z-index: 2;
+				z-index: $z-index-level-2;
 			}
 		}
 	}
@@ -108,7 +108,7 @@
 	width: 100vw;
 	height: 100vh;
 	background-color: $accent-opacity90;
-	z-index: 100;
+	z-index: $z-index-over;
 	animation: $showBlockAnimation;
 
 	> div {
