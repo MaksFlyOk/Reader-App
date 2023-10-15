@@ -1,0 +1,50 @@
+@import '/src/assets/styles/_variables.scss';
+@import '/src/assets/styles/mixins';
+@import '/src/assets/styles/fontMixins';
+
+.wrapper {
+	width: 100%;
+	background-color: $dark-accent;
+	margin-bottom: 48px;
+	padding: 24px 24px 48px 24px;
+
+	> h1 {
+		margin-bottom: 24px;
+
+		@include Headline1_400W46LHAccent;
+	}
+}
+
+.bookContainer {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 24px;
+
+	> div:last-child:not(:first-child) {
+		width: calc((100vw - 24px * 5) / 4);
+		padding: 24px;
+		background-color: $accent;
+		border-radius: $border-radius-large;
+		display: flex;
+		justify-content: center;
+
+		@include transitionBoxShadow;
+
+		> span {
+			display: flex;
+			align-items: center;
+			height: 8vw * 1.5;
+			color: $black;
+
+			@include Headline1_400W46LHAccent;
+		}
+	}
+
+	> div:last-child:hover,
+	div:last-child:focus {
+		@include hover-focus;
+	}
+	> div:last-child:active {
+		@include active;
+	}
+}

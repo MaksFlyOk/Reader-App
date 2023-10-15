@@ -1,4 +1,5 @@
 @import '/src/assets/styles/variables';
+@import '/src/assets/styles/fontMixins';
 
 .wrapper {
 	background-color: $dark-accent;
@@ -11,21 +12,20 @@
 	padding: 48px 0 0 48px;
 
 	> div {
-		width: 400px;
-		height: 400px;
+		width: 27.8vw;
+		height: 27.8vw;
 
 		> img {
 			border-radius: $border-radius-little;
-			width: 400px;
-			height: 400px;
+			width: 100%;
+			height: 100%;
 			object-fit: cover;
 		}
 	}
 
 	> button {
-		margin-top: 32px;
-		margin-bottom: 32px;
-		width: 400px;
+		margin: 48px 0;
+		width: 27.8vw;
 	}
 }
 
@@ -37,14 +37,18 @@
 		margin-right: 24px;
 	}
 
-	> h1:nth-child(1) {
-		font-size: 60px;
-		font-weight: normal;
-		font-family: $accent-font;
-	}
 	> h1 {
-		font-size: 40px;
-		font-weight: lighter;
-		margin-bottom: 12px;
+		margin-bottom: 24px;
+
+		@include Headline1_400W46LHAccent;
+	}
+	> h2 {
+		@include Headline3_300W24LH;
+	}
+	> h2:first-of-type {
+		margin-bottom: 24px;
+	}
+	> h2:last-of-type {
+		margin-bottom: 48px;
 	}
 }

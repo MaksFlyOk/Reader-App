@@ -7,7 +7,7 @@ import styles from './Nav.module.scss'
  * Navigation component.
  * @component
  * @typedef PropType
- * @property {array.<string>} navArr - This is an array of navigation elements.
+ * @property {array.<{title: string, link: string}>} navArr - This is an array of navigation elements.
  *
  * @param {PropType} props
  * @returns JSX component Nav.
@@ -25,7 +25,12 @@ const Nav = ({ navArr }) => {
 }
 
 Nav.propTypes = {
-	navArr: PropTypes.arrayOf(PropTypes.object)
+	navArr: PropTypes.arrayOf(
+		PropTypes.shape({
+			title: PropTypes.string,
+			link: PropTypes.string
+		})
+	)
 }
 
 export default Nav

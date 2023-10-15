@@ -1,13 +1,22 @@
 import { hash, verify } from 'argon2'
 import asyncHandler from 'express-async-handler'
-import { prisma } from '../prisma.js'
-import { generateToken } from '../utils/generate-token.util.js'
-import { AuthFields } from './auth-fields.js'
 
-// @desc   Login user
-// @route  POST /api/auth/login
-// @access Public
+import { generateToken } from '../utils/generate-token.util.js'
+
+import { prisma } from '../prisma.js'
+
+/**
+ * @description Login user.
+ * @request The email and password need to be transferred.
+ * @response We receive user data and a unique Token as a response.
+ *
+ * @route POST /api/auth/login
+ * @access Public
+ */
 export const authUser = asyncHandler(async (req, res) => {
+	/**
+	 * @type {{email: string, password: string}}
+	 */
 	const { email, password } = req.body
 
 	const user = await prisma.user.findUnique({
@@ -22,14 +31,22 @@ export const authUser = asyncHandler(async (req, res) => {
 		res.json({ user, token })
 	} else {
 		res.status(401)
-		throw new Error('Email and password are not correct!')
+		throw new Error('Email and password are not correct')
 	}
 })
 
-// @des 	 Register user
-// @route  POST /api/auth/register
-// @access Public
+/**
+ * @description Register user.
+ * @request Email, password and name need to be passed on.
+ * @response We receive user data and a unique Token as a response.
+ *
+ * @route POST /api/auth/register
+ * @access Public
+ */
 export const registerUser = asyncHandler(async (req, res) => {
+	/**
+	 * @type {{name: string, email: string, password: string}}
+	 */
 	const { name, email, password } = req.body
 
 	const isHaveUser = await prisma.user.findUnique({
@@ -48,8 +65,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 			name,
 			email,
 			password: await hash(password)
-		},
-		select: AuthFields
+		}
 	})
 
 	const token = generateToken(user.id)
@@ -57,15 +73,27 @@ export const registerUser = asyncHandler(async (req, res) => {
 	res.json({ user, token })
 })
 
-// @des 	 Delete user
-// @route  POST /api/auth/delete
-// @access Private
+/**
+ * @description Delete user.
+ * @request The id of the authorized user is passed.
+ * @response As a response we get user data and a message about deleting the user.
+ *
+ * @route DELETE /api/auth/delete
+ * @access Private
+ */
 export const deleteUser = asyncHandler(async (req, res) => {
-	const user = await prisma.user.delete({
+	/**
+	 * @type {number} The id of the authorized user is passed.
+	 */
+	const userId = req.user.id
+
+	const user = await prisma.user.findUnique({
 		where: {
-			id: req.user.id
+			id: userId
 		},
-		select: AuthFields
+		include: {
+			Ratings: true
+		}
 	})
 
 	if (!user) {
@@ -73,5 +101,29 @@ export const deleteUser = asyncHandler(async (req, res) => {
 		throw new Error('User not found')
 	}
 
-	res.json({ user, message: `User delete!` })
+	if (user.Ratings.length !== 0) {
+		for (const bookRating of user.Ratings) {
+			await prisma.book.updateMany({
+				where: {
+					id: bookRating.bookId
+				},
+				data: {
+					sumRate: {
+						decrement: +bookRating.rating
+					}
+				}
+			})
+		}
+	}
+
+	await prisma.user.delete({
+		where: {
+			id: userId
+		}
+	})
+
+	res.json({
+		user,
+		message: `The user account with id: ${user.id} (${user.name}) has been deleted.`
+	})
 })

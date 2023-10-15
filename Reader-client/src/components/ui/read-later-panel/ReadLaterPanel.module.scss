@@ -2,68 +2,60 @@
 @import '/src/assets/styles/mixins';
 @import './readLaterAnimation';
 
-.wrapper {
-	color: $text-black-opacity87;
+.wrapper_readLaterPage {
+	background-color: $dark-accent;
+	margin: 48px 12px;
+	border-radius: $border-radius-large;
+	padding: 24px;
+
+	> div {
+		margin-bottom: 24px;
+		display: flex;
+		justify-content: flex-end;
+	}
+}
+
+.readLaterPage {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 24px;
+}
+
+.buttonReverse {
+	width: max-content;
+	> img {
+		margin-left: 12px;
+		transition: transform ease-in-out 1s;
+	}
+
+	@include pseudo-button-span;
+}
+
+.buttonReverse:hover,
+.buttonReverse:focus {
+	@include hover-focus;
+}
+.buttonReverse:active {
+	@include active;
+}
+
+.wrapper_readLaterProfile {
+	padding: 0;
+	margin: 0;
+}
+
+.readLaterProfile {
+	color: $black;
 	margin-right: 48px;
-	margin-top: 32px;
+	margin-top: 48px;
 	display: grid;
-	gap: 18px;
+	gap: 20px;
 
 	@for $i from 1 through length($showReadLaterArray) {
 		> li:nth-child(#{$i}) {
 			grid-row-start: $i;
 			grid-column-start: 1;
 			animation: nth($showReadLaterArray, $i);
-		}
-	}
-
-	> li {
-		width: 100%;
-		background-color: $bg-color;
-		border-radius: $border-radius-little;
-		display: flex;
-		justify-content: space-between;
-		padding: 7px 24px;
-		align-items: center;
-
-		> div {
-			display: flex;
-			gap: 24px;
-
-			> span:first-child {
-				font-size: 24px;
-				font-weight: 600;
-			}
-
-			> span {
-				font-size: 24px;
-				font-weight: normal;
-			}
-		}
-
-		> .readLaterButton {
-			background-color: $dark-accent;
-			width: 40px;
-			height: 40px;
-			border-radius: $circle-radius;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			cursor: pointer;
-			transition: transform ease-in-out 0.3s;
-
-			> img {
-				background-repeat: no-repeat;
-			}
-		}
-
-		.readLaterButton:hover,
-		.readLaterButton:focus {
-			transform: scale(1.05);
-		}
-
-		.readLaterButton:active {
-			transform: scale(1);
 		}
 	}
 }

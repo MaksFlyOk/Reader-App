@@ -1,5 +1,6 @@
 @import '/src/assets/styles/variables';
 @import '/src/assets/styles/mixins';
+@import '/src/assets/styles/fontMixins';
 
 .wrapperRelated {
 	width: 100%;
@@ -8,10 +9,29 @@
 	margin-bottom: 48px;
 
 	> h1 {
-		font-size: 60px;
-		font-family: $accent-font;
-		font-weight: normal;
 		margin-bottom: 24px;
+
+		@include Headline1_400W46LHAccent;
+	}
+
+	> div {
+		display: flex;
+		gap: 24px;
+	}
+}
+
+.wrapperRelated_Loader {
+	width: 100%;
+	background-color: $dark-accent;
+	padding: 24px 24px 48px 24px;
+	margin-bottom: 48px;
+
+	> h1 {
+		margin-bottom: 24px;
+		width: max-content;
+
+		@include text-loader(light);
+		@include Headline1_400W46LHAccent;
 	}
 
 	> div {
@@ -27,10 +47,9 @@
 	margin-bottom: 48px;
 
 	> h1 {
-		font-size: 60px;
-		font-family: $accent-font;
-		font-weight: normal;
 		margin-bottom: 24px;
+
+		@include Headline1_400W46LHAccent;
 	}
 
 	> div {
@@ -40,18 +59,18 @@
 		> div:last-child {
 			background-color: $accent;
 			width: calc((100vw - 24px * 7) / 6);
-			transition: box-shadow ease-in-out 0.3s;
 			border-radius: $border-radius-large;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 
+			@include transitionBoxShadow;
+
 			> h1 {
-				font-size: 60px;
-				font-family: $accent-font;
-				font-weight: normal;
 				color: $dark-accent;
 				transform: rotate(90deg);
+
+				@include Headline1_400W46LHAccent;
 			}
 		}
 
@@ -63,48 +82,4 @@
 			@include active;
 		}
 	}
-}
-
-.book {
-	width: calc((100vw - 24px * 7) / 6);
-	background-color: $bg-color;
-	border-radius: $border-radius-large;
-	color: $dark-accent;
-	padding: 24px;
-	display: flex;
-	flex-direction: column;
-	transition: box-shadow ease-in-out 0.3s;
-
-	> div:first-child {
-		width: 100%;
-		height: 100%;
-		margin-bottom: 12px;
-		> img {
-			height: 100%;
-			width: 100%;
-			object-fit: cover;
-			border: 2px solid $dark-accent;
-			border-radius: $border-radius-little;
-		}
-	}
-
-	> div:last-child {
-		h2 {
-			font-weight: normal;
-			font-size: 16px;
-		}
-		h1 {
-			font-family: $accent-font;
-			font-size: 16px;
-			font-weight: 600;
-		}
-	}
-}
-
-.book:hover,
-.book:focus {
-	@include hover-focus;
-}
-.book:active {
-	@include active;
 }

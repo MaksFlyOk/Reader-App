@@ -1,22 +1,20 @@
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 
-import { useLastCreatedBook } from '../../../hooks/book/useLastCreatedBook'
+import { useGetLastCreatedBook } from '../../../hooks/book/useGetLastCreatedBook'
 
 import { getFilePath } from '../../../utils/file/getFile.util'
-import { setDescriptionLength } from '../../../utils/setDescriptionLength.util'
 import { setInitialTheAuthor } from '../../../utils/setInitialTheAuthor.util'
 
 import styles from './Section.module.scss'
 
 import Button from '../button/Button'
-import Loader from '../loader/Loader'
 
 /**
  * Section component. This is a component in which you can place any information and link to it.
  * @component
  * @typedef PropType
- * @property {string} style - These are variations of the component style: "lastBook" is a variation for the last book added, "hero" is a variation for posting information with a themed icon.
+ * @property {"lastBook" | "hero"} [style] - These are variations of the component style: "lastBook" is a variation for the last book added, "hero" is a variation for posting information with a themed icon.
  * @property {string} heroImage - The property required for the style variant is "hero", throw in the icon.
  * @property {string} heroTitle -The property required for the style option is "hero", throw in the header.
  * @property {string} heroDescription - The property required for the style variant is "hero", throw in the description.
@@ -30,22 +28,53 @@ const Section = ({
 	heroTitle,
 	heroDescription
 }) => {
-	const { data, isLoading } = useLastCreatedBook()
+	const { data, isLoading } = useGetLastCreatedBook()
 	const navigate = useNavigate()
 
 	return (
 		<section className={styles.wrapper}>
 			{style === 'lastBook' ? (
 				<>
-					{isLoading ? (
-						<Loader width='20vw' />
+					{data?.length === 0 ? (
+						<div className={styles[style]}>
+							<div>
+								<div>
+									<h1>There seems to be something missing here</h1>
+								</div>
+							</div>
+							<div>
+								<div>
+									<img
+										src='/public/read-later/Book.jpg'
+										alt='Last Book'
+										draggable={false}
+									/>
+								</div>
+							</div>
+						</div>
+					) : isLoading ? (
+						<div className={styles.lastBookLoader}>
+							<div>
+								<div>
+									<h1>Loading...</h1>
+									<h2>Loading...</h2>
+									<span>Loading...</span>
+								</div>
+								<Button loading={true} style='borderButton'>
+									Browse now
+								</Button>
+							</div>
+							<div>
+								<div></div>
+							</div>
+						</div>
 					) : (
 						<div className={styles[style]}>
 							<div>
 								<div>
 									<h1>{data?.name}</h1>
 									<h2>{setInitialTheAuthor(data?.author?.name, 11)}</h2>
-									<span>{setDescriptionLength(data?.description, 50)}</span>
+									<span>{data?.description}</span>
 								</div>
 								<Button
 									style='borderButton'

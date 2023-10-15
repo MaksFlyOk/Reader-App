@@ -1,0 +1,43 @@
+@import '/src/assets/styles/variables';
+@import '/src/assets/styles/fontMixins';
+@import '/src/assets/styles/mixins';
+@import '/src/assets/styles/animation';
+
+.wrapper {
+	background-color: $dark-accent;
+	margin: 48px 0;
+	padding: 24px 12px 48px 12px;
+
+	> div:first-child {
+		margin-bottom: 24px;
+
+		> h2 {
+			@include Headline2_600W50LHAccent;
+		}
+		> span {
+			margin-left: 12px;
+
+			@include Headline4_400W24LHAccent;
+		}
+	}
+
+	> div:last-child {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 24px;
+	}
+}
+
+.authorNameLoader {
+	background-color: $white-opacity50;
+	margin-bottom: 8px;
+
+	@include text-loader(light);
+}
+
+.booksQuantityLoader::after {
+	content: '';
+	animation: $quantityAuthorBooksLoader;
+
+	@include Headline4_400W24LHAccent;
+}

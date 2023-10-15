@@ -30,3 +30,38 @@ $showBlockAnimation: showBlock 0.5s ease-in-out;
 		opacity: 0;
 	}
 }
+
+$quantityAuthorBooksLoader: counter 1s linear infinite;
+
+@keyframes counter {
+	0% {
+		content: '00 books';
+	}
+	11% {
+		content: '01 books';
+	}
+	22% {
+		content: '02 books';
+	}
+	33% {
+		content: '03 books';
+	}
+	44% {
+		content: '04 books';
+	}
+	55% {
+		content: '05 books';
+	}
+	66% {
+		content: '06 books';
+	}
+	77% {
+		content: '07 books';
+	}
+	88% {
+		content: '08 books';
+	}
+	100% {
+		content: '09 books';
+	}
+}

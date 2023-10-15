@@ -1,0 +1,37 @@
+@import '/src/assets/styles/variables';
+@import '/src/assets/styles/fontMixins';
+
+.wrapper {
+	padding: 0px 12px 48px 12px;
+	background-color: $dark-accent;
+	margin: 48px 0px;
+	position: relative;
+
+	> div:first-child {
+		position: sticky;
+		top: 0;
+		padding: 24px 12px;
+		background-color: $dark-accent;
+		z-index: 1;
+		display: flex;
+		justify-content: space-between;
+
+		> div {
+			width: 100%;
+			> form {
+				display: flex;
+				justify-content: space-between;
+
+				> div {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+
+	> div:last-child {
+		display: flex;
+		gap: 24px;
+		flex-wrap: wrap;
+	}
+}

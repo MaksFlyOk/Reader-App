@@ -15,6 +15,9 @@ export const $axios = axios.create({
 
 $axios.interceptors.request.use(
 	function (config) {
+		if (Cookies.get(TOKEN)) {
+			config.headers.Authorization = `Bearer ${Cookies.get(TOKEN)}`
+		}
 		return config
 	},
 	function (error) {

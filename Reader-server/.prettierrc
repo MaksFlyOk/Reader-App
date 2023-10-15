@@ -5,13 +5,15 @@
 	"semi": false,
 	"singleQuote": true,
 	"arrowParens": "avoid",
+	"importOrderSeparation": true,
+	"importOrderSortSpecifiers": true,
 	"importOrder": [
 		"<THIRD_PARTY_MODULES>",
 		"/routes/",
 		"/middleware/",
+		"/utils/",
 		"^../(.*)",
 		"^./(.*)"
 	],
-	"importOrderSeparation": true,
-	"importOrderSortSpecifiers": true
+	"plugins": ["@trivago/prettier-plugin-sort-imports"]
 }

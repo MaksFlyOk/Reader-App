@@ -1,23 +1,24 @@
 import express from 'express'
+
 import { admin } from '../middleware/admin.middleware.js'
+
 import { addNewAuthor, deleteAuthor } from './author.controller.js'
 import { addAuthorBook, deleteAuthorBook } from './book-author.controller.js'
 import {
 	getAuthorById,
-	getAuthorsByCreatedAt,
-	getAuthorsByNumberOfBooks,
-	getAuthorsByRating
+	getAuthorsByRating_Pagination,
+	getAuthorsByRating_TopAuthors
 } from './get-author.controller.js'
 
 const router = express.Router()
 
 router.route('/').post(admin, addNewAuthor)
 
-router.route('/all/created-at').get(getAuthorsByCreatedAt)
+router.route('/all/rating/top-authors').get(getAuthorsByRating_TopAuthors)
 
-router.route('/all/rating').get(getAuthorsByRating)
-
-router.route('/all/number-of-books').get(getAuthorsByNumberOfBooks)
+router
+	.route('/all/rating/authors/page/:page')
+	.get(getAuthorsByRating_Pagination)
 
 router.route('/:id').get(getAuthorById)
 

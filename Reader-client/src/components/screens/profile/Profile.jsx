@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useContextStates } from '../../../hooks/useContextStates'
-import { useProfile } from '../../../hooks/user/useProfile'
+import { useGetProfile } from '../../../hooks/user/useGetProfile'
 
 import { dateRegister } from '../../../utils/dateRegister.util'
 import { getFilePath } from '../../../utils/file/getFile.util'
@@ -22,7 +22,7 @@ const Profile = () => {
 
 	const navigate = useNavigate()
 
-	const { data, isLoading, refetch } = useProfile()
+	const { data, isLoading, refetch } = useGetProfile()
 
 	useEffect(() => {
 		if (data?.isAdmin) {
@@ -43,7 +43,7 @@ const Profile = () => {
 		<Layout>
 			<div className={styles.wrapper}>
 				{isLoading ? (
-					<Loader width='20vw' />
+					<Loader width='30vw' />
 				) : (
 					<>
 						<div className={styles.rightSection}>
@@ -67,8 +67,8 @@ const Profile = () => {
 						</div>
 						<div className={styles.leftSection}>
 							<h1>{data?.name}</h1>
-							<h1>{data?.email}</h1>
-							<h1>{dateRegister(data?.createdAt)}</h1>
+							<h2>{data?.email}</h2>
+							<h2>{dateRegister(data?.createdAt)}</h2>
 							<div>
 								<Button clickHandler={logoutHandler}>Logout</Button>
 								{isAdmin ? (
@@ -77,7 +77,7 @@ const Profile = () => {
 									</Button>
 								) : null}
 							</div>
-							<ReadLaterPanel style='profile' />
+							<ReadLaterPanel style='readLaterProfile' />
 						</div>
 					</>
 				)}

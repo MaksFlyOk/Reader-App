@@ -6,6 +6,9 @@
 	position: relative;
 	display: flex;
 	overflow: hidden;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
 	user-select: none;
 	background-color: $dark-accent;
 	gap: 24px;
@@ -21,12 +24,12 @@
 		height: max-content;
 		animation: scroll 40s linear infinite;
 
-		p {
+		span {
 			width: 100%;
 			margin-bottom: 5px;
 			font-size: 40px;
 			font-weight: bold;
-			color: $bg-color;
+			color: $white;
 			transition: text-shadow ease-in-out 0.5s;
 		}
 	}

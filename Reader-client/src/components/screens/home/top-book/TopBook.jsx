@@ -1,17 +1,16 @@
 import { useNavigate } from 'react-router-dom'
 
-import { useBooksByRate } from '../../../../hooks/book/useBooksByRate'
+import { useGetBooksByRate_TopBooks } from '../../../../hooks/book/useGetBooksByRate_TopBook'
 
-import { getFilePath } from '../../../../utils/file/getFile.util.js'
-import { setInitialTheAuthor } from '../../../../utils/setInitialTheAuthor.util'
+import { onKeyDownHandler_Enter } from '../../../../utils/onKeyDownHandler_Enter'
 
-import Loader from '../../../ui/loader/Loader'
-import RatingPassive from '../../../ui/rating/passive/RatingPassive'
+import BookCard from '../../../ui/book-card/BookCard'
+import BookCardLoaderLoop from '../../../ui/loaders/BookCardLoaderLoop/BookCardLoaderLoop'
 
 import styles from './TopBook.module.scss'
 
 const TopBook = () => {
-	const { data, isLoading } = useBooksByRate()
+	const { data, isLoading } = useGetBooksByRate_TopBooks()
 
 	const navigate = useNavigate()
 
@@ -19,30 +18,44 @@ const TopBook = () => {
 		<div className={styles.wrapper}>
 			<h1>Top books</h1>
 			{isLoading ? (
-				<Loader height='20vw' />
+				<div className={styles.bookContainer}>
+					<BookCardLoaderLoop
+						style='horizontalMiddleCard_Loader'
+						quantity={5}
+					/>
+					<div
+						onClick={() => navigate('/books')}
+						onKeyDown={event =>
+							onKeyDownHandler_Enter(event, '/books', navigate)
+						}
+						tabIndex={0}
+					>
+						<span>SEE ALL</span>
+					</div>
+				</div>
+			) : data?.length === 0 ? (
+				<div className={styles.bookContainer}>
+					<BookCard style='horizontalMiddleCard_Empty' />
+				</div>
 			) : (
 				<div className={styles.bookContainer}>
 					{data?.map((book, index) =>
 						index < 5 ? (
-							<div key={book?.id} onClick={() => navigate(`/book/${book?.id}`)}>
-								<div>
-									<img src={getFilePath(book?.images)} draggable={false} />
-								</div>
-								<div>
-									<div>
-										<h2>{setInitialTheAuthor(book?.author?.name, 11)}</h2>
-										<h1>{book?.name}</h1>
-									</div>
-									<RatingPassive
-										sumRate={book?.sumRate}
-										rateLength={book?.rate?.length}
-									/>
-								</div>
-							</div>
+							<BookCard
+								style='horizontalMiddleCard'
+								data={book}
+								key={book?.id}
+							/>
 						) : null
 					)}
-					<div onClick={() => navigate('/books')}>
-						<h1>SEE ALL</h1>
+					<div
+						onClick={() => navigate('/books')}
+						onKeyDown={event =>
+							onKeyDownHandler_Enter(event, '/books', navigate)
+						}
+						tabIndex={0}
+					>
+						<span>SEE ALL</span>
 					</div>
 				</div>
 			)}

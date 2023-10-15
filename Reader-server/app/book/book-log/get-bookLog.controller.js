@@ -1,13 +1,24 @@
 import asyncHandler from 'express-async-handler'
+
 import { prisma } from '../../prisma.js'
 
-// @desc    Get book log
-// @route 	GET /api/book/log/:id
-// @access  Private
+/**
+ * @description Get book log.
+ * @request In req.params you need to pass the id of the book log.
+ * @response As an answer we get the log of the book.
+ *
+ * @route GET /api/book/log/:id
+ * @access Private
+ */
 export const getBookLogById = asyncHandler(async (req, res) => {
+	/**
+	 * @param {number} bookLogId - Id of the book log , passed in req.params.
+	 */
+	const bookLogId = +req.params.id
+
 	const bookLog = await prisma.bookLog.findUnique({
 		where: {
-			id: +req.params.id
+			id: bookLogId
 		},
 		include: {
 			chaptersLogs: {
@@ -24,25 +35,4 @@ export const getBookLogById = asyncHandler(async (req, res) => {
 	}
 
 	res.json(bookLog)
-})
-
-// @desc    Get books logs for user
-// @route 	GET /api/book/log/all
-// @access  Private
-export const getBookLogForUser = asyncHandler(async (req, res) => {
-	const bookLogs = await prisma.bookLog.findMany({
-		where: {
-			userId: req.user.id
-		},
-		include: {
-			chaptersLogs: true
-		}
-	})
-
-	if (!bookLogs) {
-		res.status(404)
-		throw new Error('Books logs not found')
-	}
-
-	res.json(bookLogs)
 })

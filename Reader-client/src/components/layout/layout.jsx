@@ -12,20 +12,23 @@ import Header from './header/header'
  * @property {html} children - It should be html markup.
  *
  * @param {PropType} props
- * @returns JSX component layout.
+ * @returns JSX component Layout.
  */
 const Layout = ({ children }) => {
 	return (
-		<section className={styles.wrapper}>
+		<div className={styles.wrapper}>
 			<Header />
 			{children}
 			<Footer />
-		</section>
+		</div>
 	)
 }
 
 Layout.propTypes = {
-	children: PropTypes.any
+	children: PropTypes.oneOfType([
+		PropTypes.arrayOf(PropTypes.node),
+		PropTypes.node
+	])
 }
 
 export default Layout

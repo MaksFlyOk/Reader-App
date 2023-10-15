@@ -1,0 +1,7 @@
+@import '/src/assets/styles/fontMixins';
+@import '/src/assets/styles/mixins';
+
+.other {
+	@include Headline3_300W24LHAccent;
+	@include input-checkbox(dark);
+}

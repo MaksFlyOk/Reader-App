@@ -1,0 +1,672 @@
+@import '/src/assets/styles/_variables.scss';
+@import '/src/assets/styles/mixins';
+@import '/src/assets/styles/fontMixins';
+
+.horizontalMiddleCard {
+	width: calc((100vw - 24px * 4) / 3);
+	background-color: $white;
+	color: $dark-accent;
+	border-radius: $border-radius-large;
+	display: flex;
+	padding: 24px;
+
+	@include transitionBoxShadow;
+
+	> div:first-child {
+		min-width: 10vw;
+		max-width: 10vw;
+		height: 10vw * 1.5;
+		margin-right: 24px;
+		border: 2px solid $dark-accent;
+		border-radius: $border-radius-little;
+
+		> img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			border-radius: $border-radius-little;
+		}
+	}
+
+	> div:last-child {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		> div:first-child {
+			> h2 {
+				@include Headline5_400W24LH;
+			}
+			> h1 {
+				@include Headline4_500W24LHAccent;
+			}
+		}
+	}
+}
+
+.horizontalMiddleCard:hover,
+.horizontalMiddleCard:focus {
+	@include hover-focus;
+}
+.horizontalMiddleCard:active {
+	@include active;
+}
+
+.horizontalMiddleCard_Empty {
+	width: calc((100vw - 24px * 4) / 3);
+	background-color: $white;
+	color: $dark-accent;
+	border-radius: $border-radius-large;
+	display: flex;
+	padding: 24px;
+
+	@include transitionBoxShadow;
+
+	> div:first-child {
+		min-width: 10vw;
+		max-width: 10vw;
+		height: 10vw * 1.5;
+		margin-right: 24px;
+		border: 2px solid $dark-accent;
+		border-radius: $border-radius-little;
+
+		> img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			border-radius: $border-radius-little;
+		}
+	}
+
+	> div:last-child {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		> div:first-child {
+			> h1 {
+				@include Headline4_500W24LHAccent;
+			}
+		}
+	}
+}
+
+.horizontalMiddleCard_Empty:hover,
+.horizontalMiddleCard_Empty:focus {
+	@include hover-focus;
+
+	cursor: default;
+}
+
+.horizontalMiddleCard_Loader {
+	width: calc((100vw - 24px * 4) / 3);
+	background-color: $white;
+	color: $dark-accent;
+	border-radius: $border-radius-large;
+	display: flex;
+	padding: 24px;
+
+	> div:first-child {
+		min-width: 10vw;
+		max-width: 10vw;
+		height: 10vw * 1.5;
+		margin-right: 24px;
+		border: 2px solid $dark-accent;
+		border-radius: $border-radius-little;
+
+		@include bg-loader(light);
+	}
+
+	> div:last-child {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		> h1 {
+			@include Headline2_500W50LHAccent;
+			@include text-loader(light);
+		}
+
+		> div:first-child {
+			> h2 {
+				margin-bottom: 4px;
+
+				@include Headline5_400W24LH;
+				@include text-loader(light);
+			}
+			> h1 {
+				@include Headline4_500W24LHAccent;
+				@include text-loader(light);
+			}
+		}
+	}
+}
+
+.verticalMiddleCard {
+	width: calc((100vw - 24px * 7) / 6);
+	background-color: $white;
+	border-radius: $border-radius-large;
+	color: $dark-accent;
+	padding: 24px;
+	display: flex;
+	flex-direction: column;
+
+	@include transitionBoxShadow;
+
+	> div:first-child {
+		width: 100%;
+		height: 10vw * 1.8;
+		margin-bottom: 12px;
+		> img {
+			height: 100%;
+			width: 100%;
+			object-fit: cover;
+			border: 2px solid $dark-accent;
+			border-radius: $border-radius-little;
+		}
+	}
+
+	> div:last-child {
+		h2 {
+			@include Subtitle_300W20LH;
+		}
+		h1 {
+			@include Headline6_500W20LHAccent;
+		}
+	}
+}
+
+.verticalMiddleCard:hover,
+.verticalMiddleCard:focus {
+	@include hover-focus;
+}
+.verticalMiddleCard:active {
+	@include active;
+}
+
+.verticalMiddleCard_Empty {
+	width: calc((100vw - 24px * 7) / 6);
+	background-color: $white;
+	border-radius: $border-radius-large;
+	color: $dark-accent;
+	padding: 24px;
+	display: flex;
+	flex-direction: column;
+	@include transitionBoxShadow;
+
+	> div:first-child {
+		width: 100%;
+		height: 10vw * 1.8;
+		margin-bottom: 12px;
+		> img {
+			height: 100%;
+			width: 100%;
+			object-fit: cover;
+			border: 2px solid $dark-accent;
+			border-radius: $border-radius-little;
+		}
+	}
+
+	> div:last-child {
+		h2 {
+			@include Subtitle_300W20LH;
+		}
+		h1 {
+			@include Headline6_500W20LHAccent;
+		}
+	}
+}
+
+.verticalMiddleCard_Empty:hover,
+.verticalMiddleCard_Empty:focus {
+	@include hover-focus;
+
+	cursor: default;
+}
+
+.verticalMiddleCard_Loader {
+	width: calc((100vw - 24px * 7) / 6);
+	background-color: $white;
+	border-radius: $border-radius-large;
+	color: $dark-accent;
+	padding: 24px;
+	display: flex;
+	flex-direction: column;
+
+	@include transitionBoxShadow;
+
+	> div:first-child {
+		width: 100%;
+		height: 10vw * 1.8;
+		margin-bottom: 12px;
+		border-radius: $border-radius-little;
+
+		@include bg-loader(light);
+	}
+
+	> div:last-child {
+		h2 {
+			margin-bottom: 4px;
+
+			@include Subtitle_300W20LH;
+			@include text-loader(light);
+		}
+		h1 {
+			@include Headline6_500W20LHAccent;
+			@include text-loader(light);
+		}
+	}
+}
+
+.verticalLargeCard {
+	width: calc((100vw - (12px * 2 + 24px * 3)) / 4);
+	height: max-content;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	background-color: $white;
+	border-radius: $border-radius-large;
+	color: $dark-accent;
+	padding: 24px;
+
+	@include transitionBoxShadow;
+
+	> div:first-child {
+		width: 20vw;
+		height: 20vw * 1.5;
+		border: 2px solid $dark-accent;
+		border-radius: $border-radius-little;
+
+		> img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			border-radius: $border-radius-little;
+		}
+	}
+
+	> div:last-child {
+		h2 {
+			margin: 12px 0 24px 0;
+
+			@include Headline4_500W24LHAccent;
+		}
+	}
+}
+
+.verticalLargeCard:hover,
+.verticalLargeCard:focus {
+	@include hover-focus;
+}
+.verticalLargeCard:active {
+	@include active;
+}
+
+.verticalLargeCard_Empty {
+	width: calc((100vw - (12px * 2 + 24px * 3)) / 4);
+	height: max-content;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	background-color: $white;
+	border-radius: $border-radius-large;
+	color: $dark-accent;
+	padding: 24px;
+
+	@include transitionBoxShadow;
+
+	> div:first-child {
+		width: 20vw;
+		height: 20vw * 1.5;
+		border: 2px solid $dark-accent;
+		border-radius: $border-radius-little;
+
+		> img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			border-radius: $border-radius-little;
+		}
+	}
+
+	> div:last-child {
+		h2 {
+			margin: 12px 0 24px 0;
+
+			@include Headline4_500W24LHAccent;
+		}
+	}
+}
+
+.verticalLargeCard_Empty:hover,
+.verticalLargeCard_Empty:focus {
+	@include hover-focus;
+
+	cursor: default;
+}
+
+.verticalLargeCard_Loader {
+	width: calc((100vw - (12px * 2 + 24px * 3)) / 4);
+	height: max-content;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	background-color: $white;
+	border-radius: $border-radius-large;
+	color: $dark-accent;
+	padding: 24px;
+
+	@include transitionBoxShadow;
+
+	> div:first-child {
+		width: 20vw;
+		height: 20vw * 1.5;
+		border: 2px solid $dark-accent;
+		border-radius: $border-radius-little;
+		background-color: $dark-icons;
+
+		@include bg-loader(light);
+	}
+
+	> div:last-child {
+		h2 {
+			@include Headline4_500W24LHAccent;
+			margin: 12px 0 24px 0;
+			padding: 2px;
+			background-color: $dark-icons;
+
+			@include text-loader(light);
+		}
+	}
+}
+
+.horizontalLittleCardTag_Li {
+	width: 100%;
+	background-color: $white;
+	border-radius: $border-radius-little;
+	display: flex;
+	justify-content: space-between;
+	padding: 7px 24px;
+	align-items: center;
+
+	> div {
+		display: flex;
+		gap: 24px;
+
+		> span:first-child {
+			@include Headline4_500W24LHAccent;
+		}
+		> span {
+			@include Headline5_400W24LH;
+		}
+
+		> span::after {
+			@include link-underline-after;
+
+			background-color: $dark-icons;
+		}
+
+		> span:hover,
+		span:active {
+			cursor: pointer;
+		}
+		> span:hover:after,
+		span:focus:after {
+			@include link-underline-after-HoverAndFocus;
+		}
+	}
+}
+
+.horizontalLittleCardTag_Li_Empty {
+	width: 100%;
+	background-color: $white;
+	border-radius: $border-radius-little;
+	display: flex;
+	justify-content: space-between;
+	padding: 7px 24px;
+	align-items: center;
+
+	> div {
+		display: flex;
+		gap: 24px;
+
+		> span {
+			@include Headline4_500W24LHAccent;
+		}
+	}
+}
+
+.horizontalLittleCardTag_Li_Loader {
+	width: 100%;
+	background-color: $white;
+	border-radius: $border-radius-little;
+	display: flex;
+	justify-content: space-between;
+	padding: 7px 24px;
+	align-items: center;
+
+	> div {
+		display: flex;
+		gap: 24px;
+
+		> span:first-child {
+			@include Headline4_500W24LHAccent;
+			@include text-loader(light);
+		}
+
+		> span {
+			@include Headline5_400W24LH;
+			@include text-loader(light);
+		}
+	}
+	> span {
+		height: 40px;
+	}
+}
+
+.horizontalLargeCardTag_Li {
+	width: calc((100vw - (12px * 2 + 24px * 3)) / 2);
+	position: relative;
+
+	> div {
+		display: flex;
+		background-color: $white;
+		border-radius: $border-radius-little;
+		color: $dark-accent;
+		padding: 24px;
+
+		> div:first-child {
+			min-width: 13vw;
+			max-width: 13vw;
+			height: 13vw * 1.5;
+			border: 2px solid $dark-accent;
+			border-radius: $border-radius-little;
+
+			> img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				border-radius: $border-radius-little;
+			}
+		}
+
+		> div:last-child {
+			width: calc((100vw - (12px * 2 + 24px * 3)) / 4);
+			display: flex;
+			flex-direction: column;
+			margin-left: 48px;
+
+			> span:nth-child(1) {
+				margin-bottom: 12px;
+				width: max-content;
+
+				@include Headline2_500W50LHAccent;
+			}
+
+			> span:nth-child(2) {
+				margin-bottom: 24px;
+				width: max-content;
+
+				@include Headline3_300W24LH;
+			}
+
+			> span::after {
+				@include link-underline-after;
+
+				background-color: $dark-icons;
+			}
+
+			> span:hover,
+			span:active {
+				cursor: pointer;
+			}
+			> span:hover:after,
+			span:focus:after {
+				@include link-underline-after-HoverAndFocus;
+			}
+
+			> div:first-of-type {
+				display: flex;
+				align-items: center;
+				gap: 24px;
+				margin-bottom: 24px;
+
+				> span:first-child {
+					@include Headline4_400W24LHAccent;
+				}
+
+				> span:last-child {
+					@include Headline5_300W24LH;
+				}
+			}
+		}
+	}
+
+	> span {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 12px;
+	}
+}
+
+.horizontalLargeCardTag_Li_Empty {
+	width: calc((100vw - (12px * 2 + 24px * 3)) / 2);
+	position: relative;
+
+	> div {
+		display: flex;
+		background-color: $white;
+		border-radius: $border-radius-little;
+		color: $dark-accent;
+		padding: 24px;
+
+		> div:first-child {
+			min-width: 13vw;
+			max-width: 13vw;
+			height: 13vw * 1.5;
+			border: 2px solid $dark-accent;
+			border-radius: $border-radius-little;
+
+			> img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				border-radius: $border-radius-little;
+			}
+		}
+
+		> div:last-child {
+			width: calc((100vw - (12px * 2 + 24px * 3)) / 4);
+			display: flex;
+			flex-direction: column;
+			margin-left: 48px;
+
+			> span {
+				@include Headline2_500W50LHAccent;
+			}
+		}
+	}
+
+	> span {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 12px;
+	}
+}
+
+.horizontalLargeCardTag_Li_Loader {
+	width: calc((100vw - (12px * 2 + 24px * 3)) / 2);
+	position: relative;
+
+	> div {
+		display: flex;
+		background-color: $white;
+		border-radius: $border-radius-little;
+		color: $dark-accent;
+		padding: 24px;
+
+		> div:first-child {
+			min-width: 13vw;
+			max-width: 13vw;
+			height: 13vw * 1.5;
+			border: 2px solid $dark-accent;
+			border-radius: $border-radius-little;
+
+			@include bg-loader(light);
+		}
+
+		> div:last-child {
+			width: calc((100vw - (12px * 2 + 24px * 3)) / 4);
+			display: flex;
+			flex-direction: column;
+			margin-left: 48px;
+
+			> span:nth-child(1) {
+				margin-bottom: 12px;
+
+				@include Headline2_500W50LHAccent;
+				@include text-loader(light);
+			}
+
+			> span:nth-child(2) {
+				margin-bottom: 24px;
+
+				@include text-loader(light);
+				@include Headline3_300W24LH;
+			}
+
+			> span:last-child {
+				width: max-content;
+
+				@include Headline2_500W50LHAccent;
+				@include text-loader(light);
+			}
+
+			> div:first-of-type {
+				display: flex;
+				align-items: center;
+				gap: 24px;
+				margin-bottom: 24px;
+
+				> span:first-child {
+					@include Headline4_400W24LHAccent;
+					@include text-loader(light);
+				}
+
+				> span:last-child {
+					@include Headline5_300W24LH;
+					@include text-loader(light);
+				}
+			}
+		}
+	}
+
+	> span {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 12px;
+	}
+}

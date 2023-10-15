@@ -1,0 +1,116 @@
+@import '/src/assets/styles/variables';
+@import '/src/assets/styles/fontMixins';
+@import '/src/assets/styles/mixins';
+
+.arrowDropDownDisabled,
+.arrowDropDownEnabled {
+	transition: transform ease-in-out 0.3s;
+}
+
+.dropDown {
+	top: calc(0px + 24px);
+	right: calc(0px + 12px);
+	background-color: $dark-accent;
+	position: absolute;
+	padding: 10px 16px;
+	border: 2px solid $white;
+	border-radius: $border-radius-little;
+	width: max-content;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+
+	> div:first-child {
+		display: flex;
+		align-items: center;
+		width: 100%;
+		display: flex;
+		gap: 12px;
+		justify-content: space-between;
+		align-items: center;
+
+		@include Headline3_300W24LHAccent;
+
+		> span:hover,
+		> span:active {
+			cursor: pointer;
+		}
+	}
+
+	> div:first-child:hover,
+	> div:first-child:focus {
+		> .arrowDropDownDisabled {
+			transform: translateY(4px);
+		}
+		> .arrowDropDownEnabled {
+			transform: translateY(-4px) rotate(180deg);
+		}
+	}
+
+	> div:first-child:active {
+		> .arrowDropDownDisabled {
+			transform: translateY(0);
+		}
+		> .arrowDropDownEnabled {
+			transform: translateY(0) rotate(180deg);
+		}
+	}
+}
+
+.dropDownElements {
+	display: none;
+	flex-direction: column;
+	gap: 12px;
+
+	> span {
+		width: max-content;
+
+		@include Headline3_300W24LHAccent;
+
+		> input {
+			display: none;
+		}
+
+		> label::after {
+			@include link-underline-after;
+
+			background-color: $white-opacity50;
+		}
+
+		> label:hover,
+		> label:active {
+			cursor: pointer;
+		}
+
+		> label:hover:after,
+		> label:focus:after {
+			@include link-underline-after-HoverAndFocus;
+		}
+	}
+}
+
+.active {
+	display: flex;
+}
+
+.arrowDropDownDisabled:hover,
+.arrowDropDownDisabled:focus {
+	transform: translateY(4px);
+}
+
+.arrowDropDownDisabled:active {
+	transform: translateY(0);
+}
+
+.arrowDropDownEnabled {
+	transform: rotate(180deg);
+}
+
+.arrowDropDownEnabled:hover,
+.arrowDropDownEnabled:focus {
+	transform: translateY(-4px) rotate(180deg);
+}
+
+.arrowDropDownEnabled:active {
+	transform: translateY(0) rotate(180deg);
+}

@@ -1,0 +1,139 @@
+@import '/src/assets/styles/variables';
+@import '/src/assets/styles/fontMixins';
+
+@mixin track-styles {
+	appearance: none;
+	background: transparent;
+	border: transparent;
+}
+
+@mixin thumb-styles {
+	appearance: none;
+	pointer-events: all;
+	width: 16px;
+	height: 16px;
+	border-radius: 0px;
+	border: 0 none;
+	cursor: grab;
+	background-color: red;
+
+	&:active {
+		cursor: grabbing;
+	}
+}
+
+.wrapper {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	height: max-content;
+
+	> div:last-child {
+		position: relative;
+		width: calc(100% - 16px);
+		margin-left: 8px;
+
+		> div:first-child {
+			width: calc(100% + 16px);
+			margin: 0 calc(16px / -2);
+			position: absolute;
+			height: 16px;
+
+			> input {
+				position: absolute;
+				width: 100%;
+				pointer-events: none;
+				appearance: none;
+				height: 100%;
+				opacity: 0;
+				z-index: 3;
+				padding: 0;
+
+				&::-ms-track {
+					@include track-styles;
+				}
+
+				&::-moz-range-track {
+					@include track-styles;
+				}
+
+				&:focus::-webkit-slider-runnable-track {
+					@include track-styles;
+				}
+
+				&::-ms-thumb {
+					@include thumb-styles;
+				}
+
+				&::-moz-range-thumb {
+					@include thumb-styles;
+				}
+
+				&::-webkit-slider-thumb {
+					@include thumb-styles;
+				}
+			}
+		}
+	}
+}
+
+.rail {
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	transform: translateY(-50%);
+	height: 2px;
+	background: $dark-icons;
+}
+
+.innerRail {
+	position: absolute;
+	height: 100%;
+	background: $dark-accent;
+}
+
+.control {
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	position: absolute;
+	background: $dark-accent;
+	top: 50%;
+	margin-left: calc(16px / -2);
+	transform: translate3d(0, -50%, 0);
+	z-index: 2;
+}
+
+.rangeValue {
+	display: flex;
+	flex-direction: row;
+	align-items: baseline;
+	gap: 12px;
+	margin-bottom: 24px;
+
+	> span {
+		color: $dark-accent;
+		@include Headline3_400W24LHAccent;
+	}
+
+	> input {
+		outline: none;
+		border: none;
+		background-color: $dark-icons;
+		padding: 6px 10px;
+		border-radius: $border-radius-little;
+		text-align: center;
+		color: $dark-accent;
+		@include Headline4_400W24LHAccent;
+	}
+
+	> input::placeholder {
+		color: $dark-icons;
+	}
+
+	> input::-webkit-outer-spin-button,
+	> input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+}

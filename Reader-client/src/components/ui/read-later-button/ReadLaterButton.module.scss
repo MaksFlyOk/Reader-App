@@ -9,11 +9,20 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	cursor: pointer;
 	transition: transform ease-in-out 0.3s;
 
-	> img {
-		background-repeat: no-repeat;
+	> div {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		border-radius: $circle-radius;
+
+		> :not(.loader) {
+			cursor: pointer;
+		}
 	}
 }
 
@@ -24,4 +33,53 @@
 
 .readLaterButton:active {
 	transform: scale(1);
+}
+
+.loader {
+	-webkit-animation: bookMark-loader-animation 2s
+		cubic-bezier(0.47, 0, 0.745, 0.715) 0s both infinite;
+	animation: bookMark-loader-animation 2s cubic-bezier(0.47, 0, 0.745, 0.715) 0s
+		both infinite;
+}
+
+@-webkit-keyframes bookMark-loader-animation {
+	0% {
+		stroke-dashoffset: 81.21890258789062px;
+		stroke-dasharray: 81.21890258789062px;
+	}
+
+	25% {
+		stroke-dashoffset: 162.43780517578125px;
+		stroke-dasharray: 81.21890258789062px;
+	}
+	50% {
+		stroke-dashoffset: 162.43780517578125px;
+		stroke-dasharray: 81.21890258789062px;
+	}
+
+	100% {
+		stroke-dashoffset: 243.65670776367188px;
+		stroke-dasharray: 81.21890258789062px;
+	}
+}
+
+@keyframes bookMark-loader-animation {
+	0% {
+		stroke-dashoffset: 81.21890258789062px;
+		stroke-dasharray: 81.21890258789062px;
+	}
+
+	25% {
+		stroke-dashoffset: 162.43780517578125px;
+		stroke-dasharray: 81.21890258789062px;
+	}
+	50% {
+		stroke-dashoffset: 162.43780517578125px;
+		stroke-dasharray: 81.21890258789062px;
+	}
+
+	100% {
+		stroke-dashoffset: 243.65670776367188px;
+		stroke-dasharray: 81.21890258789062px;
+	}
 }

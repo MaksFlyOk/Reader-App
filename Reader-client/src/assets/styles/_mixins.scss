@@ -1,3 +1,6 @@
+@import '/src/assets/styles/variables';
+@import '/src/assets/styles/fontMixins';
+
 @mixin link-underline-after {
 	background-color: $accent;
 	display: block;
@@ -16,21 +19,151 @@
 @mixin pseudo-button-span {
 	display: flex;
 	justify-content: center;
-	background-color: $bg-color;
+	background-color: $white;
 	font-size: 30px;
 	font-weight: normal;
 	font-family: $accent-font;
 	border-radius: $border-radius-little;
-	color: $text-black-opacity87;
+	color: $black;
 	padding: 15px 24px;
 	transition: box-shadow ease-in-out 0.3s;
-	cursor: pointer;
+}
+
+@mixin transitionBoxShadow {
+	transition: box-shadow ease-in-out 0.3s;
 }
 
 @mixin hover-focus {
-	box-shadow: 5px 5px $text-black-opacity87;
+	box-shadow: 5px 5px $black;
+	cursor: pointer;
 }
 
 @mixin active {
-	box-shadow: 0px 0px $text-black-opacity87;
+	box-shadow: 0px 0px $black;
+	cursor: pointer;
+}
+
+@mixin input-checkbox($style) {
+	> input {
+		position: absolute;
+		z-index: -1;
+		opacity: 0;
+	}
+
+	> label:hover,
+	> label:focus {
+		cursor: pointer;
+	}
+
+	> input + label {
+		display: inline-flex;
+		align-items: center;
+		user-select: none;
+	}
+	> input + label::before {
+		content: '';
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		flex-shrink: 0;
+		flex-grow: 0;
+		@if $style == light {
+			border: 1px solid $white;
+		} @else {
+			border: 1px solid $dark-accent;
+		}
+		border-radius: 5px;
+		margin-right: 12px;
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size: 50% 50%;
+
+		transition: all ease-in-out 0.3s;
+	}
+
+	> input:checked + label::before {
+		@if $style == light {
+			border: 1px solid $dark-accent;
+		} @else {
+			border: 1px solid $white;
+		}
+		background-color: $accent;
+		background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3e%3cpath d='M0 3C0 1.34315 1.34315 0 3 0H9C10.6569 0 12 1.34315 12 3V9C12 10.6569 10.6569 12 9 12H3C1.34315 12 0 10.6569 0 9V3Z' fill='%232A2C2E'/%3e%3c/svg%3e");
+	}
+
+	> input:not(:disabled):not(:checked) + label:hover::before,
+	input:not(:disabled):not(:checked) + label:focus::before {
+		border-color: $accent;
+	}
+
+	> input:not(:disabled):active + label::before {
+		@if $style == light {
+			border: 1px solid $white;
+		} @else {
+			border: 1px solid $dark-accent;
+		}
+		background-color: $accent;
+	}
+
+	> input:focus:not(:checked) + label::before {
+		@if $style == light {
+			border: 1px solid $white;
+		} @else {
+			border: 1px solid $dark-accent;
+		}
+	}
+
+	> input:not(:disabled):checked + label:hover::before,
+	input:not(:disabled):checked + label:focus::before {
+		@if $style == light {
+			border: 1px solid $white;
+		} @else {
+			border: 1px solid $dark-accent;
+		}
+	}
+
+	> input:disabled + label::before {
+		background-color: $accent;
+	}
+}
+
+@mixin bg-loader($color) {
+	@if ($color == 'light') {
+		background-image: linear-gradient(
+			90deg,
+			rgba($white, 0),
+			rgba($white, 0.5),
+			rgba($white, 0)
+		);
+	} @else {
+		background-image: linear-gradient(
+			90deg,
+			rgba($dark-accent, 0),
+			rgba($dark-accent, 0.5),
+			rgba($dark-accent, 0)
+		);
+	}
+	background-color: $dark-icons;
+	background-size: 50% 100%;
+	background-repeat: no-repeat;
+	background-position: left -100% top 0;
+	animation: loader-animation 2s ease-in-out infinite;
+}
+@mixin text-loader($color) {
+	border-radius: $border-radius-little;
+	color: transparent;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+	@include bg-loader($color);
+}
+
+@keyframes loader-animation {
+	to {
+		background-position: right -100% top 0;
+	}
 }

@@ -2,12 +2,12 @@ import { useMutation } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { useBookByIdNotAuth } from '../../../hooks/book/useBookByIdNotAuth'
+import { useGetBookByIdNotAuth } from '../../../hooks/book/useGetBookByIdNotAuth'
 
 import { getFilePath } from '../../../utils/file/getFile.util'
+import { onKeyDownHandler_Enter } from '../../../utils/onKeyDownHandler_Enter'
 
 import Alert from '../../ui/alert/Alert'
-import Loader from '../../ui/loader/Loader'
 
 import styles from './Chapter.module.scss'
 
@@ -16,37 +16,48 @@ import Footer from '../../layout/footer/Footer'
 
 const Chapter = () => {
 	const { pathname } = useLocation()
-
+	const navigate = useNavigate()
 	const [bookId, chapterId] = [pathname.split('/')[2], pathname.split('/')[4]]
 
-	const [text, setText] = useState('error')
-
+	/**
+	 * @description This state defines the progress bar values in percent.
+	 */
+	const [width, setWidth] = useState(0)
+	/**
+	 * @description This state determines the output text of the chapter.
+	 */
+	const [text, setText] = useState(/** @type {string | null} */ (null))
 	const [isAlertShow, setAlertShow] = useState(false)
 
-	const { data, isLoading } = useBookByIdNotAuth(bookId)
+	const { data, isLoading } = useGetBookByIdNotAuth(bookId)
 
 	const {
-		mutate,
+		mutateAsync,
 		isLoading: isLoadingMutate,
 		error
-	} = useMutation(['get chapter'], async data => {
-		if (data) {
-			const chapterIndex = data?.chapters?.findIndex(
-				chapter => chapter.id === Number(chapterId)
-			)
-			$axios
-				.get(`${getFilePath(data?.chapters[chapterIndex].text)}`)
-				.then(response => {
-					setText(response.data)
-				})
+	} = useMutation(
+		['get chapter'],
+		/**
+		 * This asynchronous mutation sends a request to the server using axios. This request returns the text of the chapter.
+		 * @param {{id: number, name: string, description: string, images: string, category: array<{id: number, category: string}>, genre: {id: number, genre: string}, publishDate: number, pages: number, author: {id: number, name: string, books: array<{id: number, name: string, images: string, author: {id: number, name: string}}>}, chapters: array<{id: number, name: string, text: string}>, sumRate: number, rate: array<{rating: number, userId: number}>}} data
+		 */
+		async data => {
+			if (data) {
+				const chapterIndex = data?.chapters?.findIndex(
+					chapter => chapter.id === Number(chapterId)
+				)
+				await $axios
+					.get(`${getFilePath(data?.chapters[chapterIndex]?.text)}`)
+					.then(response => {
+						setText(response.data)
+					})
+			}
 		}
-	})
-
-	const navigate = useNavigate()
+	)
 
 	useEffect(() => {
 		if (isLoading === false) {
-			mutate(data)
+			mutateAsync(data)
 		}
 	}, [data, isLoading])
 
@@ -60,23 +71,25 @@ const Chapter = () => {
 		}
 	}, [error])
 
-	const [width, setWidth] = useState(0)
+	/**
+	 * This function handles the Listener ("Scroll") to render the progress bar.
+	 * @param {event} event
+	 */
+	const scrollHeightHandler = event => {
+		const onePercent =
+			(event.target.documentElement.scrollHeight - window.innerHeight) / 100
 
-	const scrollHeight = () => {
-		let el = document.documentElement,
-			ScrollTop = document.body.scrollTop,
-			ScrollHeight = document.body.scrollHeight
-		let percent = (
-			(ScrollTop / (ScrollHeight - el.clientHeight - 50)) *
-			100
-		).toFixed(0)
+		const percent = event.target.documentElement.scrollTop / onePercent
+
 		setWidth(percent)
 	}
 
 	useEffect(() => {
-		window.addEventListener('wheel', scrollHeight)
-		return () => window.removeEventListener('wheel', scrollHeight)
-	}, [])
+		if (text !== null) {
+			window.addEventListener('scroll', scrollHeightHandler)
+			return () => window.removeEventListener('scroll', scrollHeightHandler)
+		}
+	}, [text])
 
 	return (
 		<>
@@ -84,37 +97,60 @@ const Chapter = () => {
 				<Alert type='error'>{String(error)}</Alert>
 			) : null}
 			{isLoading || isLoadingMutate ? (
-				<Loader />
-			) : (
-				<div className={styles.textFrame}>
-					<header className={styles.header}>
-						<div>
-							<h1 onClick={() => navigate(-1)}>
-								{data?.name}
-								<img
-									src='/public/chapter-button/Chapter-arrow-light.svg'
-									alt='arrow'
-								/>
-							</h1>
-							<span>
-								{data?.chapters?.length > 1
-									? data?.chapters[
-											data?.chapters?.findIndex(
-												chapter => chapter.id === Number(chapterId)
-											)
-									  ]?.name
-									: null}
-							</span>
-							<div style={{ width: `${width}%` }}></div>
-						</div>
-					</header>
+				<section className={styles.textFrameLoader}>
 					<div>
-						{text.split('\n').map((paragraph, index) => (
-							<p key={index}>{paragraph}</p>
-						))}
+						<header>
+							<h2>Loading...</h2>
+						</header>
+						<article>
+							<span>Loading...</span>
+						</article>
 					</div>
 					<Footer />
-				</div>
+				</section>
+			) : (
+				<section className={styles.textFrame}>
+					<div>
+						<header className={styles.header}>
+							<div>
+								<h2
+									className={styles.title}
+									onClick={() => navigate(`/book/${bookId}`)}
+									tabIndex={0}
+									onKeyDown={event =>
+										onKeyDownHandler_Enter(event, `/book/${bookId}`, navigate)
+									}
+								>
+									{data?.name}
+									<img
+										src='/public/chapter-button/Chapter-arrow-light.svg'
+										alt='arrow'
+									/>
+								</h2>
+								<span>
+									{data?.chapters?.length > 1
+										? data?.chapters[
+												data?.chapters?.findIndex(
+													chapter => chapter.id === Number(chapterId)
+												)
+											]?.name
+										: null}
+								</span>
+								<div style={{ width: `${width}%` }}></div>
+							</div>
+						</header>
+						<article>
+							{text === null ? (
+								<span>Looks like something went wrong, sorry...</span>
+							) : (
+								text
+									.split('\n')
+									.map((paragraph, index) => <p key={index}>{paragraph}</p>)
+							)}
+						</article>
+					</div>
+					<Footer />
+				</section>
 			)}
 		</>
 	)

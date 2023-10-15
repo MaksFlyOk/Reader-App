@@ -1,5 +1,6 @@
 @import '/src/assets/styles/variables';
 @import '/src/assets/styles/mixins';
+@import '/src/assets/styles/fontMixins';
 
 .wrapper {
 	background-color: $dark-accent;
@@ -10,15 +11,12 @@
 	}
 
 	> div {
-		background-color: $icon-black-opacity20;
+		background-color: $dark-icons;
 		display: flex;
 		justify-content: space-between;
 
 		> a {
-			font-size: 20px;
-			font-family: $accent-font;
-			font-weight: normal;
-			text-decoration: none;
+			@include Headline5_400W24LH;
 			color: $white;
 			margin: 8px 24px;
 		}

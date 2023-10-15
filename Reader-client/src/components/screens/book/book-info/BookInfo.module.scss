@@ -1,0 +1,33 @@
+@import '/src/assets/styles/fontMixins';
+@import '/src/assets/styles/mixins';
+
+.info {
+	margin-top: 48px;
+	border-spacing: 0 12px;
+
+	> thead tr {
+		> td:first-child {
+			@include Headline4_400W24LHAccent;
+		}
+
+		> th:last-child {
+			@include Headline5_300W24LH;
+		}
+	}
+
+	> thead tr td:last-child {
+		padding-left: 24px;
+	}
+}
+
+.info_loader {
+	margin-top: 48px;
+	border-spacing: 0 12px;
+
+	> thead tr {
+		> td {
+			@include Headline4_400W24LHAccent;
+			@include text-loader(light);
+		}
+	}
+}

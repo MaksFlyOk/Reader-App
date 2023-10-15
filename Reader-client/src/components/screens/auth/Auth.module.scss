@@ -3,13 +3,12 @@
 @import '/src/assets/styles/mixins';
 
 .wrapper {
-	width: 100vw;
 	height: 100vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 
-	> div {
+	> section {
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -21,16 +20,14 @@
 }
 
 .formWrapper {
-	width: 100%;
 	margin: 120px 0 160px 0;
+
 	form {
 		display: flex;
 		flex-direction: column;
 
 		div:first-child {
-			> input {
-				animation: $showBlockAnimation;
-			}
+			animation: $showBlockAnimation;
 		}
 	}
 }
@@ -50,6 +47,7 @@
 
 	> span {
 		@include pseudo-button-span;
+
 		> img {
 			margin-left: 12px;
 			transition: transform ease-in-out 1s;
@@ -57,10 +55,22 @@
 	}
 
 	> span:hover,
-	span:focus {
+	> span:focus {
 		@include hover-focus;
 	}
 	> span:active {
 		@include active;
+	}
+
+	> span[disabled] {
+		pointer-events: none;
+		color: rgba($black, 50%);
+
+		@include bg-loader(light);
+
+		> img {
+			opacity: 0.5;
+			filter: contrast(1.5);
+		}
 	}
 }

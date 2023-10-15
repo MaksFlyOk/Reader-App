@@ -1,15 +1,29 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
 
 import { $axios } from '../../../api'
 
 export const useReadLaterButton = () => {
+	const queryClient = useQueryClient()
+
 	const { mutate, isLoading, error } = useMutation(
 		['add/delete the book to Read Later '],
+		/**
+		 * This asynchronous mutation sends a request to the server using axios. This request adds or removes a book from the read later list.
+		 * @param {object} data
+		 * @param {"add" | "delete"} data.type
+		 * @param {number} data.bookId
+		 */
 		async ({ type, bookId }) => {
 			await $axios.patch(`/user/book/${type}/${bookId}`)
 		},
 		{
+			onSuccess: bookId => {
+				queryClient.invalidateQueries([
+					'check the book on list Read Later',
+					bookId
+				])
+			},
 			onError: error => {
 				return error
 			}

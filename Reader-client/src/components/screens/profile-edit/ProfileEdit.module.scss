@@ -1,9 +1,9 @@
 @import '/src/assets/styles/variables';
 @import '/src/assets/styles/animation';
 @import '/src/assets/styles/mixins';
+@import '/src/assets/styles/fontMixins';
 
 .wrapper {
-	width: 100vw;
 	height: 100vh;
 	display: flex;
 	justify-content: center;
@@ -29,13 +29,13 @@
 
 	> div:first-child {
 		margin: 48px 0 48px 0;
-		width: 400px;
-		height: 400px;
+		width: 27.8vw;
+		height: 27.8vw;
 
 		> img {
 			border-radius: $border-radius-little;
-			width: 400px;
-			height: 400px;
+			width: 100%;
+			height: 100%;
 			object-fit: cover;
 		}
 	}
@@ -55,6 +55,15 @@
 			}
 		}
 	}
+}
+
+.profileImageLoader {
+	margin: 48px 0 48px 0;
+	width: 27.8vw;
+	height: 27.8vw;
+	border-radius: $border-radius-little;
+
+	@include bg-loader(light);
 }
 
 .buttonWrapper {
@@ -81,33 +90,12 @@
 	> span:active {
 		@include active;
 	}
-}
 
-.dropZoneActive {
-	background-color: rgba($accent, 0.5);
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	z-index: 3;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: $text-black-opacity87;
-	font-size: 60px;
-	font-weight: normal;
-	font-family: $default-font;
-	animation: $showBlockAnimation;
-}
-
-.dropZonePassive {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	z-index: 1;
+	> span[disabled] {
+		@include bg-loader(light);
+		pointer-events: none;
+		color: rgba($black, 50%);
+	}
 }
 
 .confirm {
@@ -119,7 +107,7 @@
 	left: 0;
 	width: 100vw;
 	height: 100vh;
-	background-color: rgba($accent, 0.9);
+	background-color: $accent-opacity90;
 	z-index: 100;
 	animation: $showBlockAnimation;
 
@@ -127,21 +115,20 @@
 		text-align: center;
 		background-color: $dark-accent;
 		border-radius: $border-radius-large;
-		width: 600px;
+		width: 42vw;
 		padding: 100px 150px;
-		height: 598px;
+		height: 42vw;
 
 		> h1 {
-			font-size: 40px;
-			font-weight: bold;
-			color: $bg-color;
+			@include Headline2_600W50LHAccent;
+			color: $white;
 		}
 
 		> div {
 			margin-top: 170px;
 			> span:first-child {
 				margin-bottom: 48px;
-				background-color: $error-color;
+				background-color: $danger;
 			}
 			> span {
 				@include pseudo-button-span;

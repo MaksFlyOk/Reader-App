@@ -1,9 +1,15 @@
 import asyncHandler from 'express-async-handler'
+
 import { prisma } from '../prisma.js'
 
-// @desc   Upload user image
-// @route  PATCH /api/upload/profileImage
-// @access Private
+/**
+ * @description Upload user image.
+ * @request Transferring a file, an image.
+ * @response As a response we get an object with information about the request. Status, a message that the file has been downloaded, as well as file data, name, type and size.
+ *
+ * @route POST /api/upload/profileImage
+ * @access Private
+ */
 export const uploadUserProfileImage = asyncHandler(async (req, res) => {
 	try {
 		if (!req.files) {

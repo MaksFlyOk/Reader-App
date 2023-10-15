@@ -1,7 +1,8 @@
 @import '/src/assets/styles/variables';
 @import '/src/assets/styles/mixins';
+@import '/src/assets/styles/fontMixins';
 
-.wrapper {
+.linkLarge {
 	background-color: $dark-accent;
 	margin: 48px 12px;
 	position: relative;
@@ -14,16 +15,14 @@
 	> div:first-child {
 		width: 32vw;
 
-		> h1 {
-			font-weight: normal;
-			font-size: 40px;
-			font-family: $accent-font;
+		> h2 {
 			margin-bottom: 24px;
 			width: max-content;
+
+			@include Headline2_400W48LHAccent;
 		}
 		> p {
-			font-weight: normal;
-			font-size: 20px;
+			@include Headline5_400W24LH;
 		}
 	}
 
@@ -43,29 +42,99 @@
 			}
 		}
 
-		> div:last-child {
+		> button {
 			background-color: $accent;
 			border-radius: $border-radius-little;
 			padding: 65px;
-			transition: box-shadow ease-in-out 0.3s;
+
+			@include transitionBoxShadow;
 
 			> img {
 				transition: transform ease-in-out 0.3s;
 			}
 		}
 
-		> div:last-child:hover,
-		> div:last-child:focus {
+		> button:hover,
+		> button:focus {
 			@include hover-focus;
 			> img {
 				transform: rotate(-90deg);
 			}
 		}
-		> div:last-child:active {
+		> button:active {
 			@include active;
 			> img {
 				transform: rotate(-90deg) translate(4px, 4px);
 			}
 		}
 	}
+}
+
+.linkLittleDark {
+	position: relative;
+	overflow: hidden;
+	background-color: $dark-accent;
+	padding: 65px 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: $border-radius-large;
+
+	@include transitionBoxShadow;
+
+	> h2 {
+		color: $white;
+		z-index: 1;
+
+		@include Headline2_600W50LHAccent;
+	}
+
+	> div {
+		position: absolute;
+		top: calc(-65px / 3);
+		left: 0;
+		z-index: 0;
+	}
+}
+
+.linkLittleAccent {
+	position: relative;
+	overflow: hidden;
+	background-color: $accent;
+	padding: 65px 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: $border-radius-large;
+
+	@include transitionBoxShadow;
+
+	> h2 {
+		color: $black;
+		z-index: 1;
+
+		@include Headline2_600W50LHAccent;
+	}
+
+	> div {
+		position: absolute;
+		top: calc(-65px / 3);
+		left: 0;
+		z-index: 0;
+	}
+}
+
+.linkLittleDark:hover,
+.linkLittleDark:focus {
+	box-shadow: 5px 5px $accent;
+	cursor: pointer;
+}
+
+.linkLittleAccent:hover,
+.linkLittleAccent:focus {
+	@include hover-focus;
+}
+.linkLittleAccent:active,
+.linkLittleDark:active {
+	@include active;
 }

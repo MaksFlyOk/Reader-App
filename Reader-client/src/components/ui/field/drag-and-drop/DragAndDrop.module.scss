@@ -1,5 +1,6 @@
 @import '/src/assets/styles/variables';
 @import '/src/assets/styles/mixins';
+@import '/src/assets/styles/fontMixins';
 @import '/src/assets/styles/animation';
 
 .inputWrapper {
@@ -7,13 +8,14 @@
 }
 
 .error {
-	margin-top: 2px;
-	font-size: 16px;
-	font-family: $default-font;
-	color: $error-color;
+	position: relative;
+	color: $danger;
+	z-index: 1;
+
+	@include Headline6_400W20LH;
 }
 
-.fileFieldSmall {
+.fileField {
 	> input {
 		opacity: 0;
 		width: 0.1px;
@@ -22,18 +24,24 @@
 	}
 
 	> label {
-		background-color: $bg-color;
+		position: relative;
+		height: 54px;
+		background-color: $white;
 		width: calc(100vw / 3);
 		border-radius: $border-radius-little;
-		padding: 8px 16px;
-		font-size: 30px;
-		font-weight: lighter;
-		font-family: $accent-font;
+		padding: 15px 24px;
 		display: block;
 		position: relative;
 		width: calc(100vw / 3);
 		cursor: pointer;
-		transition: box-shadow ease-in-out 0.3s;
+		z-index: 0;
+
+		@include transitionBoxShadow;
+		@include Headline3_300W24LHAccent;
+
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	label:hover,
@@ -42,14 +50,46 @@
 	}
 }
 
+.fileFieldLoader {
+	> input {
+		opacity: 0;
+		width: 0.1px;
+		height: 0.1px;
+		position: absolute;
+	}
+
+	> label {
+		position: relative;
+		height: 54px;
+		background-color: $white;
+		width: calc(100vw / 3);
+		border-radius: $border-radius-little;
+		padding: 15px 24px;
+		display: block;
+		position: relative;
+		width: calc(100vw / 3);
+		cursor: pointer;
+		z-index: 0;
+
+		@include transitionBoxShadow;
+		@include Headline3_300W24LHAccent;
+
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+
+		@include bg-loader(light);
+	}
+}
+
 .fileName {
-	font-size: 16px;
-	font-family: $accent-font;
-	color: $bg-color;
+	color: $white;
+
+	@include Headline6_400W20LH;
 }
 
 .dropZoneActive {
-	background-color: rgba($accent, 0.5);
+	background-color: $accent-opacity50;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -59,11 +99,10 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	color: $text-black-opacity87;
-	font-size: 60px;
-	font-weight: normal;
-	font-family: $default-font;
+	color: $black;
 	animation: $showBlockAnimation;
+
+	@include Headline1_400W46LHAccent;
 }
 
 .dropZonePassive {

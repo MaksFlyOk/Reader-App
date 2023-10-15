@@ -1,34 +1,33 @@
 @import '/src/assets/styles/variables';
 @import '/src/assets/styles/mixins';
+@import '/src/assets/styles/fontMixins';
 
 .inputWrapper {
 	margin-bottom: 24px;
 }
 
 .error {
-	margin-top: 2px;
-	font-size: 16px;
-	font-family: $default-font;
-	color: $error-color;
+	color: $danger;
+
+	@include Headline6_400W20LH;
 }
 
 .field {
-	background-color: $bg-color;
+	height: 54px;
+	background-color: $white;
 	width: calc(100vw / 3);
 	border-radius: $border-radius-little;
 	padding: 15px 24px;
-	color: $text-black-opacity87;
-	font-size: 30px;
-	font-weight: lighter;
-	font-family: $accent-font;
-	transition: box-shadow ease-in-out 0.3s;
+	color: $black;
+
+	@include Headline3_300W24LHAccent;
+	@include transitionBoxShadow;
 }
 
 .field::placeholder {
-	color: $icon-black-opacity20;
-	font-size: 30px;
-	font-weight: lighter;
-	font-family: $accent-font;
+	color: $dark-icons;
+
+	@include Headline3_300W24LHAccent;
 }
 
 .field:hover,
@@ -36,26 +35,12 @@
 	@include hover-focus;
 }
 
-.fieldSmall {
-	background-color: $bg-color;
-	width: calc(100vw / 3);
-	border-radius: $border-radius-little;
-	padding: 8px 16px;
-	color: $text-black-opacity87;
-	font-size: 30px;
-	font-weight: lighter;
-	font-family: $accent-font;
-	transition: box-shadow ease-in-out 0.3s;
-}
+.field:disabled {
+	color: transparent;
+	pointer-events: none;
 
-.fieldSmall::placeholder {
-	color: $icon-black-opacity20;
-	font-size: 30px;
-	font-weight: lighter;
-	font-family: $accent-font;
+	@include bg-loader(light);
 }
-
-.fieldSmall:hover,
-.fieldSmall:focus {
-	@include hover-focus;
+.field:disabled::placeholder {
+	color: transparent;
 }

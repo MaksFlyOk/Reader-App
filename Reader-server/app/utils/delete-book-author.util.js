@@ -1,3 +1,9 @@
+/**
+ * This function checks the availability of the book with the author.
+ * @param {array<{name: string, id: number, images: string, rate: array<{userId: number, rating: number}>, sumRate: number }>} authorBooks
+ * @param {number} bookId
+ * @returns {boolean}
+ */
 export const deleteBookId = (authorBooks, bookId) => {
 	const arrBooksIds = []
 

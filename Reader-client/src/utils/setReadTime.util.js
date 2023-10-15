@@ -1,3 +1,8 @@
+/**
+ * Function for calculating the approximate reading time of a book.
+ * @param {number} pages - Number of pages, data from the database.
+ * @returns {string} Return the string in the format: "00(min) - 00(min) min" || "00(min) min - 00(hr) hr" || "00(hr) - 00(hr) hr"
+ */
 export const setReadTime = pages => {
 	let time1 = pages * 2
 	let time2 = pages * 3

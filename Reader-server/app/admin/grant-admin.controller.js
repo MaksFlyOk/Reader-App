@@ -1,10 +1,19 @@
 import asyncHandler from 'express-async-handler'
+
 import { prisma } from '../prisma.js'
 
-// @desc   Granting admin rights
-// @route  Patch /api/admin/grant/:id
-// @access Public && If there's no admin || Admin && If there's even one admin
+/**
+ * @description Granting admin rights.
+ * @request Pass in req.params Id of the user to whom you want to give admin rights.
+ * @response As a response we get user data and a message about granting or revoking admin rights.
+ *
+ * @route Patch /api/admin/grant/:id
+ * @access Public && If there's no admin || Admin && If there's even one admin
+ */
 export const grantAdmin = asyncHandler(async (req, res) => {
+	/**
+	 * @param {number} userId - User Id passed in req.params.
+	 */
 	const userId = +req.params.id
 
 	const { isAdmin } = await prisma.user.findUnique({
@@ -36,5 +45,10 @@ export const grantAdmin = asyncHandler(async (req, res) => {
 		}
 	})
 
-	res.json(user)
+	res.json({
+		user,
+		message: user.isAdmin
+			? `The user with id: ${user.id} (${user.name}) now has administrator rights.`
+			: `The user with id: ${user.id} (${user.name}) has now been stripped of admin rights.`
+	})
 })

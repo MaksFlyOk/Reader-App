@@ -1,4 +1,5 @@
 @import '/src/assets/styles/variables';
+@import '/src/assets/styles/fontMixins';
 
 .wrapper {
 	width: 100vw;
@@ -9,26 +10,27 @@
 	align-items: center;
 
 	> div {
-		width: 540px;
+		width: 600px;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
 
 		> h1 {
-			font-size: 60px;
-			font-family: $accent-font;
-			font-weight: normal;
+			@include Headline1_400W46LHAccent;
 		}
 
 		> p {
 			margin: 48px 0 24px 0;
-			font-size: 40px;
-			width: 480px;
-			font-weight: normal;
+
+			@include Body1_400W40LH;
 		}
 
-		> button {
-			z-index: 1;
+		> div {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			> button {
+				z-index: 1;
+			}
 		}
 
 		> svg {

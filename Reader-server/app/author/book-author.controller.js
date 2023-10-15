@@ -1,13 +1,38 @@
 import asyncHandler from 'express-async-handler'
-import { prisma } from '../prisma.js'
+
 import { addBookId } from '../utils/add-book-author.util.js'
 import { deleteBookId } from '../utils/delete-book-author.util.js'
 
-// @desc    Add to the author of the book
-// @route 	PATCH /api/author/book/add:id
-// @access  Admin
+import { prisma } from '../prisma.js'
+
+const selectFields = {
+	id: true,
+	name: true,
+	books: {
+		select: {
+			id: true,
+			name: true
+		}
+	}
+}
+
+/**
+ * @description Add to the author of the book.
+ * @request It is necessary to pass in req.params the author id and pass bookId - book id.
+ * @response As an answer, we get the author's data.
+ *
+ * @route PATCH /api/author/book/add:id
+ * @access Admin
+ */
 export const addAuthorBook = asyncHandler(async (req, res) => {
+	/**
+	 * @param {number} authorId - Author Id passed in req.params.
+	 */
 	const authorId = +req.params.id
+
+	/**
+	 * @type {{bookId: number}}
+	 */
 	const { bookId } = req.body
 
 	const isBook = await prisma.book.findUnique({
@@ -44,16 +69,7 @@ export const addAuthorBook = asyncHandler(async (req, res) => {
 				connect: addBookId(authorBooks, bookId).map(id => ({ id: +id }))
 			}
 		},
-		select: {
-			id: true,
-			name: true,
-			books: {
-				select: {
-					id: true,
-					name: true
-				}
-			}
-		}
+		select: selectFields
 	})
 
 	if (!author) {
@@ -64,12 +80,24 @@ export const addAuthorBook = asyncHandler(async (req, res) => {
 	res.json(author)
 })
 
-// @desc    Delete to the author of the book
-// @route 	PATCH /api/author/book/delete/:id
-// @access  Admin
+/**
+ * @description Delete to the author of the book.
+ * @request It is necessary to pass in req.params the author id and pass bookId - book id.
+ * @response As an answer, we get the author's data.
+ *
+ * @route PATCH /api/author/book/delete/:id
+ * @access Admin
+ */
 export const deleteAuthorBook = asyncHandler(async (req, res) => {
-	const { bookId } = req.body
+	/**
+	 * @param {number} authorId - Author Id passed in req.params.
+	 */
 	const authorId = +req.params.id
+
+	/**
+	 * @type {{bookId: number}}
+	 */
+	const { bookId } = req.body
 
 	const authorBooks = await prisma.author.findUnique({
 		where: {
@@ -80,7 +108,7 @@ export const deleteAuthorBook = asyncHandler(async (req, res) => {
 		}
 	})
 
-	if (deleteBookId(authorBooks, bookId) === true) {
+	if (deleteBookId(authorBooks, bookId)) {
 		res.status(404)
 		throw new Error('There is no such book by this author')
 	}
@@ -94,10 +122,7 @@ export const deleteAuthorBook = asyncHandler(async (req, res) => {
 				set: deleteBookId(authorBooks, bookId).map(id => ({ id: +id }))
 			}
 		},
-		select: {
-			name: true,
-			books: true
-		}
+		select: selectFields
 	})
 
 	res.json(author)

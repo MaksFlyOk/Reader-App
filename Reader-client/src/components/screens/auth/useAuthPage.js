@@ -10,21 +10,37 @@ import { setToken } from '../../../utils/setToken.util'
 import { $axios } from '../../../api'
 
 export const useAuthPage = () => {
-	const [isAuthForm, setAuth] = useState('login')
+	/**
+	 * @description This state determines the type of authorization.
+	 */
+	const [authFormState, setAuth] = useState(
+		/** @type {"login" | "register"} */ ('login')
+	)
+	const [isAlertShow, setAlertShow] = useState(false)
+
 	const { isAuth, setIsAuth, setIsAdmin } = useContextStates()
+
 	const navigate = useNavigate()
 
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-		reset
+		reset,
+		setFocus
 	} = useForm({
 		mode: 'onChange'
 	})
 
-	const { mutate, isLoading, error } = useMutation(
+	const { mutateAsync, isLoading, error } = useMutation(
 		['auth'],
+		/**
+		 * This asynchronous mutation sends a request to the server using axios. If name = undefined, this is a request to log the user, otherwise to register.
+		 * @param {object} userData
+		 * @param {string | undefined} userData.name
+		 * @param {string} userData.email
+		 * @param {string} userData.password
+		 */
 		async ({ name, email, password }) => {
 			if (name === undefined) {
 				const { data } = await $axios.post(`/auth/login`, {
@@ -54,25 +70,18 @@ export const useAuthPage = () => {
 			onSuccess: () => {
 				setIsAuth(true)
 
-				reset()
-
 				navigate('/profile')
-				window.location.reload()
 			}
 		}
 	)
 
-	useEffect(() => {
-		if (isAuth) {
-			navigate('/profile')
-		}
-	})
-
 	const onSubmit = data => {
-		mutate(data)
+		mutateAsync(data)
 	}
 
-	const [isAlertShow, setAlertShow] = useState(false)
+	useEffect(() => {
+		if (isAuth) navigate('/profile')
+	})
 
 	useEffect(() => {
 		if (error) {
@@ -89,13 +98,15 @@ export const useAuthPage = () => {
 			isLoading,
 			handleSubmit,
 			onSubmit,
-			isAuthForm,
+			authFormState,
 			errors,
 			register,
 			setAuth,
 			error,
-			isAlertShow
+			isAlertShow,
+			setFocus
 		}),
-		[isLoading, errors, isAuthForm, isAlertShow]
+
+		[isLoading, errors, authFormState, isAlertShow]
 	)
 }

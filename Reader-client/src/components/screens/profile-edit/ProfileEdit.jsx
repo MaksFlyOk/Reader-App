@@ -1,10 +1,11 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Cookies from 'js-cookie'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
 import { useContextStates } from '../../../hooks/useContextStates'
-import { useProfile } from '../../../hooks/user/useProfile'
+import { useGetProfile } from '../../../hooks/user/useGetProfile'
 
 import authService from '../../../services/auth.service'
 import fileService from '../../../services/file/file.service'
@@ -13,7 +14,6 @@ import editUserService from '../../../services/user/edit-user.service'
 import Button from '../../ui/button/Button'
 import Field from '../../ui/field/Field'
 import DragAndDrop from '../../ui/field/drag-and-drop/DragAndDrop'
-import Loader from '../../ui/loader/Loader'
 import Logo from '../../ui/logo/Logo'
 
 import styles from './ProfileEdit.module.scss'
@@ -33,38 +33,55 @@ const ProfileEdit = () => {
 		mode: 'onChange'
 	})
 
-	const { data, isLoading, refetch } = useProfile()
-	const { setIsAuth, setIsAdmin, setUserId } = useContextStates()
+	const { data, isFetching } = useGetProfile()
+	const { setIsAuth, setIsAdmin } = useContextStates()
 	const navigate = useNavigate()
+	const queryClient = useQueryClient()
 
+	/**
+	 * @description This state determines the display of the account deletion confirmation window.
+	 */
 	const [isConfirmShow, setConfirmShow] = useState(false)
 
+	const { mutateAsync, isLoading: isLoadingMutate } = useMutation(
+		/**
+		 * This asynchronous mutation sends a request to the server using axios to change the name, password, or avatar of an authorized user.
+		 * @param {object} data
+		 * @param {string | undefined} data.name
+		 * @param {string | undefined} data.password
+		 * @param {string | undefined} data.newPassword
+		 * @param {file | undefined} data.image
+		 */
+		async data => {
+			if (data.name) {
+				await editUserService.editUser('name', data)
+			}
+
+			if (data.password && data.newPassword) {
+				await editUserService.editUser('password', data)
+			}
+
+			if (data.image) {
+				await fileService.uploadUserProfileImage(data)
+			}
+
+			reset()
+		},
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries(['get profile'])
+			}
+		}
+	)
+
 	const onSubmit = data => {
-		console.log(data)
-		if (data.name) {
-			editUserService.editUser('name', data)
-		}
-
-		if (data.password && data.newPassword) {
-			editUserService.editUser('password', data)
-		}
-
-		if (data.image[0]) {
-			fileService.uploadUserProfileImage(data)
-		}
-
-		if (data.name || (data.password && data.newPassword) || data.image[0]) {
-			refetch()
-		}
-
-		reset()
+		mutateAsync(data)
 	}
 
-	const deleteHandler = () => {
-		authService.deleteUser()
+	const deleteAccountHandler = async () => {
+		await authService.deleteUser()
 		Cookies.remove(TOKEN)
 
-		setUserId(undefined)
 		setIsAuth(false)
 		setIsAdmin(false)
 		navigate('/auth')
@@ -72,30 +89,13 @@ const ProfileEdit = () => {
 
 	return (
 		<>
-			{isConfirmShow ? (
-				<div className={styles.confirm}>
-					<div>
-						<h1>You are sure?</h1>
-						<div>
-							<span onClick={() => deleteHandler()}>Delete</span>
-							<span
-								onClick={() =>
-									isConfirmShow ? setConfirmShow(false) : setConfirmShow(true)
-								}
-							>
-								Cancel
-							</span>
-						</div>
-					</div>
-				</div>
-			) : null}
 			<div className={styles.wrapper}>
 				<div>
 					<Logo />
-					{isLoading ? (
-						<Loader />
-					) : (
-						<div className={styles.profileEdit}>
+					<div className={styles.profileEdit}>
+						{isFetching || isLoadingMutate ? (
+							<div className={styles.profileImageLoader}></div>
+						) : (
 							<div>
 								<img
 									src={
@@ -106,100 +106,143 @@ const ProfileEdit = () => {
 									alt='Profile image'
 								/>
 							</div>
-							<div>
-								<form onSubmit={handleSubmit(onSubmit)}>
-									<Field
-										styleInput='fieldSmall'
-										error={errors?.name?.message}
-										name='name'
-										register={register}
-										options={{
-											minLength: {
-												value: 4,
-												message: 'Minimum number of character for username is 4'
-											},
-											maxLength: {
-												value: 16,
-												message:
-													'Maximum number of character for username is 16'
-											}
+						)}
+						<div>
+							<form onSubmit={handleSubmit(onSubmit)}>
+								<Field
+									loading={isFetching || isLoadingMutate ? true : false}
+									error={errors?.name?.message}
+									name='name'
+									register={register}
+									options={{
+										minLength: {
+											value: 4,
+											message: 'Minimum number of character for username is 4'
+										},
+										maxLength: {
+											value: 16,
+											message: 'Maximum number of character for username is 16'
+										}
+									}}
+									type='text'
+									placeholder={`Name (${
+										isFetching || isLoadingMutate ? '' : data?.name
+									})`}
+								/>
+								<Field
+									loading={isFetching || isLoadingMutate}
+									error={errors?.password?.message}
+									name='password'
+									register={register}
+									options={{
+										minLength: {
+											value: 6,
+											message: 'Minimum number of character for password is 6'
+										},
+										maxLength: {
+											value: 16,
+											message: 'Maximum number of character for password is 16'
+										}
+									}}
+									type='password'
+									placeholder='Password'
+								/>
+								<Field
+									loading={isFetching || isLoadingMutate}
+									error={errors?.newPassword?.message}
+									name='newPassword'
+									register={register}
+									options={{
+										minLength: {
+											value: 6,
+											message:
+												'Minimum number of character for new password is 6'
+										},
+										maxLength: {
+											value: 16,
+											message:
+												'Maximum number of character for new password is 16'
+										}
+									}}
+									type='password'
+									placeholder='New password'
+								/>
+								<DragAndDrop
+									loading={isFetching || isLoadingMutate}
+									error={errors?.image?.message}
+									name='image'
+									register={register}
+									type='file'
+									setError={setError}
+									setValue={setValue}
+									fieldState={getFieldState('image')}
+								/>
+								<div className={styles.buttonWrapper}>
+									<Button
+										loading={isFetching || isLoadingMutate}
+										clickHandler={() => {
+											handleSubmit(onSubmit)
 										}}
-										type='text'
-										placeholder={`Name (${data?.name})`}
-									/>
-									<Field
-										styleInput='fieldSmall'
-										error={errors?.password?.message}
-										name='password'
-										register={register}
-										options={{
-											minLength: {
-												value: 6,
-												message: 'Minimum number of character for password is 6'
-											},
-											maxLength: {
-												value: 16,
-												message:
-													'Maximum number of character for password is 16'
-											}
-										}}
-										type='password'
-										placeholder='Password'
-									/>
-									<Field
-										styleInput='fieldSmall'
-										error={errors?.newPassword?.message}
-										name='newPassword'
-										register={register}
-										options={{
-											minLength: {
-												value: 6,
-												message:
-													'Minimum number of character for new password is 6'
-											},
-											maxLength: {
-												value: 16,
-												message:
-													'Maximum number of character for new password is 16'
-											}
-										}}
-										type='password'
-										placeholder='New password'
-									/>
-									<DragAndDrop
-										styleInput='fileFieldSmall'
-										error={errors?.image?.message}
-										name='image'
-										register={register}
-										type='file'
-										setError={setError}
-										setValue={setValue}
-										fieldState={getFieldState('image')}
-									/>
-									<div className={styles.buttonWrapper}>
-										<Button
-											clickHandler={() => {
-												handleSubmit(onSubmit)
-											}}
-										>
-											Edit
-										</Button>
-										<span
-											onClick={() =>
+									>
+										Edit
+									</Button>
+									<span
+										disabled={isFetching || isLoadingMutate}
+										onClick={() =>
+											isConfirmShow
+												? setConfirmShow(false)
+												: setConfirmShow(true)
+										}
+										tabIndex={0}
+										onKeyDown={event => {
+											if (event.key === 'Enter') {
 												isConfirmShow
 													? setConfirmShow(false)
 													: setConfirmShow(true)
 											}
-										>
-											Delete acc
-										</span>
-									</div>
-								</form>
-							</div>
+										}}
+									>
+										Delete acc
+									</span>
+								</div>
+							</form>
 						</div>
-					)}
+					</div>
 				</div>
 			</div>
+			{isConfirmShow ? (
+				<div className={styles.confirm}>
+					<div>
+						<h1>You are sure?</h1>
+						<div>
+							<span
+								onClick={() => deleteAccountHandler()}
+								tabIndex={0}
+								onKeyDown={event => {
+									if (event.key === 'Enter') {
+										deleteAccountHandler()
+									}
+								}}
+							>
+								Delete
+							</span>
+							<span
+								onClick={() =>
+									isConfirmShow ? setConfirmShow(false) : setConfirmShow(true)
+								}
+								tabIndex={0}
+								onKeyDown={event => {
+									if (event.key === 'Enter') {
+										isConfirmShow ? setConfirmShow(false) : setConfirmShow(true)
+									}
+								}}
+							>
+								Cancel
+							</span>
+						</div>
+					</div>
+				</div>
+			) : null}
 		</>
 	)
 }

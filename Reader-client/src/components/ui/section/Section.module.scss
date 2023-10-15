@@ -1,4 +1,6 @@
 @import '/src/assets/styles/variables';
+@import '/src/assets/styles/fontMixins';
+@import '/src/assets/styles/mixins';
 
 .wrapper {
 	width: 100%;
@@ -6,9 +8,6 @@
 	padding: 48px 0px 0px 24px;
 	background-color: $dark-accent;
 	border-radius: $border-radius-large;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 .lastBook {
@@ -23,23 +22,24 @@
 		justify-content: space-between;
 		> div {
 			> h1 {
-				font-size: 50px;
-				line-height: 46px;
-				font-weight: normal;
-				font-family: $accent-font;
+				margin-bottom: 8px;
+
+				@include Headline1_400W46LHAccent;
 			}
 
 			> h2 {
-				font-size: 30px;
-				font-weight: lighter;
-				font-family: $default-font;
 				margin-bottom: 12px;
+
+				@include Headline3_300W24LH;
 			}
 
 			> span {
-				font-size: 20px;
-				font-weight: lighter;
-				font-family: $default-font;
+				-webkit-line-clamp: 4;
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+
+				@include Headline5_400W24LH;
 			}
 		}
 	}
@@ -55,6 +55,56 @@
 				border-radius: $border-radius-little;
 				object-fit: cover;
 			}
+		}
+	}
+}
+
+.lastBookLoader {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	padding: 0 48px 48px 0;
+
+	> div:first-child {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		width: 100%;
+
+		> div {
+			> h1 {
+				width: 100%;
+				margin-bottom: 8px;
+
+				@include Headline1_400W46LHAccent;
+				@include text-loader(light);
+			}
+
+			> h2 {
+				margin-bottom: 12px;
+
+				@include Headline3_300W24LH;
+				@include text-loader(light);
+			}
+
+			> span {
+				display: flex;
+				height: 100%;
+
+				@include text-loader(light);
+				@include Headline5_400W24LH;
+			}
+		}
+	}
+
+	> div:last-child {
+		> div {
+			width: 13vw;
+			height: calc(13vw * 1.5);
+			margin-left: 48px;
+			border-radius: $border-radius-little;
+
+			@include bg-loader(light);
 		}
 	}
 }
@@ -87,7 +137,6 @@
 				font-size: 20px;
 				font-weight: lighter;
 				font-family: $default-font;
-				width: calc(100% - 48px);
 			}
 		}
 	}

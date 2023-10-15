@@ -51,16 +51,16 @@
 	animation-iteration-count: infinite;
 }
 
-.Accent {
+.accent {
 	stroke: $accent;
 }
 
-.Black {
+.dark {
 	stroke: $dark-accent;
 }
 
-.White {
-	stroke: $bg-color;
+.light {
+	stroke: $white;
 }
 
 .blockAnimation {

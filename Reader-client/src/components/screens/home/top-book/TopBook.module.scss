@@ -1,16 +1,16 @@
 @import '/src/assets/styles/_variables.scss';
 @import '/src/assets/styles/mixins';
+@import '/src/assets/styles/fontMixins';
 
 .wrapper {
 	width: 100%;
 	background-color: $dark-accent;
-	padding: 24px 24px 24px 24px;
+	padding: 24px 24px 48px 24px;
 
 	> h1 {
-		font-size: 60px;
-		font-weight: normal;
-		font-family: $accent-font;
-		margin-bottom: 36px;
+		margin-bottom: 24px;
+
+		@include Headline1_400W46LHAccent;
 	}
 }
 
@@ -18,58 +18,32 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: 24px;
-	margin-bottom: 84px;
 
-	> div {
+	> div:last-child:not(:first-child) {
 		width: calc((100vw - 24px * 4) / 3);
-		background-color: $bg-color;
-		color: $dark-accent;
-		border-radius: $border-radius-large;
-		display: flex;
 		padding: 24px;
-		transition: box-shadow ease-in-out 0.3s;
-
-		> div:first-child {
-			min-width: 120px;
-			min-height: 184px;
-			margin-right: 24px;
-
-			> img {
-				width: 120px;
-				height: 184px;
-				border-radius: $border-radius-little;
-				object-fit: cover;
-			}
-		}
-
-		> div:last-child {
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-		}
-	}
-
-	> div:last-child {
-		width: calc((100vw - 24px * 4) / 3);
 		background-color: $accent;
 		border-radius: $border-radius-large;
 		display: flex;
 		justify-content: center;
-		align-items: center;
+		@include transitionBoxShadow;
 
-		> h1 {
-			font-size: 60px;
-			font-weight: normal;
-			font-family: $accent-font;
-			color: $text-black-opacity87;
+		> span {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 10vw * 1.5;
+			color: $black;
+
+			@include Headline1_400W46LHAccent;
 		}
 	}
 
-	> div:hover,
-	> div:focus {
+	> div:last-child:not(:first-child):hover,
+	div:last-child:not(:first-child):focus {
 		@include hover-focus;
 	}
-	> div:active {
+	> div:last-child:not(:first-child):active {
 		@include active;
 	}
 }

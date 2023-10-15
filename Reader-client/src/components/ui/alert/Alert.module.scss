@@ -1,21 +1,23 @@
 @import '/src/assets/styles/animation';
 @import 'src/assets/styles/variables';
+@import 'src/assets/styles/fontMixins';
 
 .alert {
 	position: absolute;
 	top: 0;
 	right: 0;
 	width: max-content;
-	font-weight: 500;
+	@include Headline5_400W24LH;
 	background-color: #5be7c4;
-	color: $text-black-opacity87;
+	color: $black;
 	margin: 20px;
 	border-radius: $border-radius-little;
 	padding: 8px 16px;
 	animation: showAlert 4s;
+	z-index: 1000;
 
 	&.error {
-		background-color: $error-color;
+		background-color: $danger;
 		color: $white;
 	}
 

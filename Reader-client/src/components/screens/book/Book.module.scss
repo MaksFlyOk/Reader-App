@@ -1,18 +1,38 @@
 @import '/src/assets/styles/variables';
 @import '/src/assets/styles/mixins';
+@import '/src/assets/styles/fontMixins';
 
-.aboutBook {
+@mixin aboutBookWrapperStyles {
 	display: flex;
 	justify-content: space-between;
 	margin: 48px 12px;
 	padding: 48px 24px;
 	background-color: $dark-accent;
 	border-radius: $border-radius-large;
+}
+
+@mixin descriptionStyles {
+	display: flex;
+	flex-direction: column;
+	padding: 24px;
+	background-color: $white;
+	color: $black;
+	border-radius: $border-radius-little;
+	width: 31vw;
+	height: calc(31vw * 1.2);
+}
+
+.wrapper {
+	max-width: 100vw;
+}
+
+.aboutBook {
+	@include aboutBookWrapperStyles;
 
 	> div {
 		display: flex;
 
-		> div:first-child {
+		> figure {
 			width: 25vw;
 			height: 100%;
 			display: grid;
@@ -41,50 +61,117 @@
 			margin-left: 48px;
 
 			> h2 {
-				font-size: 30px;
-				font-weight: lighter;
+				@include Headline3_300W24LH;
+				width: max-content;
 				margin-bottom: 12px;
+			}
+			> h2:hover {
+				cursor: pointer;
+			}
+			> h2::after {
+				@include link-underline-after;
+				background-color: $white;
+			}
+			> h2:hover:after,
+			> h2:focus:after {
+				@include link-underline-after-HoverAndFocus;
 			}
 
 			> h1 {
-				font-family: $accent-font;
-				font-size: 40px;
-				font-weight: 500;
-				line-height: 50px;
-				margin-bottom: 48px;
-			}
-
-			> table {
-				margin-top: 36px;
-				border-spacing: 0 12px;
-
-				> thead tr td:last-child {
-					padding-left: 24px;
-				}
+				@include Headline2_500W50LHAccent;
+				margin-bottom: 24px;
 			}
 		}
 	}
 
-	> div:last-child {
-		display: flex;
-		flex-direction: column;
-		padding: 24px;
-		background-color: $bg-color;
-		color: $text-black-opacity87;
-		border-radius: $border-radius-little;
-		width: 31vw;
-		height: calc(31vw * 1.2);
+	> article {
+		@include descriptionStyles;
 
-		> span:first-child {
-			font-family: $accent-font;
-			font-size: 30px;
-			font-weight: normal;
+		> h3:first-child {
+			@include Headline3_400W24LHAccent;
 			margin-bottom: 12px;
 		}
 
-		> span:last-child {
-			font-size: 20px;
-			font-weight: lighter;
+		> p:last-child {
+			@include Headline5_300W24LH;
+		}
+	}
+}
+
+.aboutBook_Loader {
+	@include aboutBookWrapperStyles;
+
+	> div {
+		display: flex;
+
+		> figure {
+			width: 25vw;
+			height: 100%;
+			border-radius: $border-radius-little;
+
+			@include bg-loader(light);
+		}
+
+		> div:last-child {
+			margin-left: 48px;
+
+			> h2 {
+				margin-bottom: 12px;
+
+				@include Headline3_300W24LH;
+				@include text-loader(light);
+			}
+
+			> h1 {
+				margin-bottom: 24px;
+
+				@include Headline2_500W50LHAccent;
+				@include text-loader(light);
+			}
+		}
+	}
+
+	> article {
+		@include descriptionStyles;
+
+		> h3:first-child {
+			margin-bottom: 12px;
+
+			@include Headline3_400W24LHAccent;
+			@include text-loader(light);
+		}
+
+		> p:last-child {
+			height: 100%;
+
+			@include Headline5_300W24LH;
+			@include text-loader(light);
+		}
+	}
+}
+
+.errorBook {
+	display: flex;
+	margin: 48px 12px;
+	padding: 48px 24px;
+	background-color: $dark-accent;
+	border-radius: $border-radius-large;
+
+	> figure {
+		width: 25vw;
+		height: 100%;
+
+		> img {
+			width: 100%;
+			border-radius: $border-radius-little;
+		}
+	}
+
+	> div:last-child {
+		margin-left: 48px;
+
+		> h1 {
+			@include Headline2_500W50LHAccent;
 		}
 	}
 }

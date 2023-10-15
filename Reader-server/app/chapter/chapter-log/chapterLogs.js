@@ -1,38 +1,24 @@
 import asyncHandler from 'express-async-handler'
+
 import { prisma } from '../../prisma.js'
 
-// @desc    Get chapters logs
-// @route 	GET /api/chapters/log/all
-// @access  Admin
-export const getChaptersLogs = asyncHandler(async (req, res) => {
-	const chaptersLogs = await prisma.chapterLog.findMany({
-		orderBy: {
-			createdAt: 'asc'
-		},
-		select: {
-			id: true,
-			bookLogId: true,
-			chapterId: true,
-			userId: true,
-			isCompleted: true
-		}
-	})
-
-	if (!chaptersLogs) {
-		res.status(404)
-		throw new Error('Book not found')
-	}
-
-	res.json(chaptersLogs)
-})
-
-// @desc    Complete the chapter
-// @route 	PATCH /api/chapter/log/complete/:id
-// @access  Private
+/**
+ * @description Complete the chapter.
+ * @request Pass in req.params the identifier of the chapter to be completed. (Or if the chapter is completed make it not completed).
+ * @response We get the chapter log as a response.
+ *
+ * @route PATCH /api/chapter/log/complete/:id
+ * @access Private
+ */
 export const completeChapter = asyncHandler(async (req, res) => {
+	/**
+	 * @param {number} authorId - Chapter Id passed in req.params.
+	 */
+	const chapterId = +req.params.id
+
 	const { isCompleted } = await prisma.chapterLog.findUnique({
 		where: {
-			id: +req.params.id
+			id: chapterId
 		},
 		select: {
 			isCompleted: true
@@ -41,7 +27,7 @@ export const completeChapter = asyncHandler(async (req, res) => {
 
 	const chapterLog = await prisma.chapterLog.update({
 		where: {
-			id: +req.params.id
+			id: chapterId
 		},
 		data: {
 			isCompleted: {

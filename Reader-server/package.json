@@ -20,8 +20,10 @@
 		"express-async-handler": "^1.2.0",
 		"express-fileupload": "^1.4.0",
 		"jsonwebtoken": "^9.0.1",
+		"paginate-prisma": "^1.0.145",
 		"pg": "^8.11.2",
-		"prisma": "^5.1.1"
+		"prisma": "^5.1.1",
+		"tslib": "^2.6.2"
 	},
 	"devDependencies": {
 		"@trivago/prettier-plugin-sort-imports": "^4.2.0",

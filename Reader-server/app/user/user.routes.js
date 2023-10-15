@@ -1,6 +1,8 @@
 import express from 'express'
+
 import { admin } from '../middleware/admin.middleware.js'
 import { protect } from '../middleware/auth.middleware.js'
+
 import {
 	addBookToReadLater,
 	checkBookOnReadLater,
@@ -8,7 +10,7 @@ import {
 	deleteBookToReadLater,
 	rateBook
 } from './book-user.controller.js'
-import { editNamePassword, editNameUser } from './edit-user.controller.js'
+import { editNameUser, editPasswordUser } from './edit-user.controller.js'
 import {
 	getAllUser,
 	getProfile,
@@ -25,7 +27,7 @@ router.route('/all').get(admin, getAllUser)
 
 router.route('/edit/name').patch(protect, editNameUser)
 
-router.route('/edit/password').patch(protect, editNamePassword)
+router.route('/edit/password').patch(protect, editPasswordUser)
 
 router.route('/book/check/:id').get(protect, checkBookOnReadLater)
 

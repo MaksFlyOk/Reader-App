@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 
-import { useBookByIdNotAuth } from '../../../../hooks/book/useBookByIdNotAuth'
-import { useRateBook } from '../../../../hooks/user/useRateBook'
+import { useGetBookByIdNotAuth } from '../../../../hooks/book/useGetBookByIdNotAuth'
+import { useCheckRateBook } from '../../../../hooks/user/useCheckRateBook'
 
 import { setNumberOfGrades } from '../../../../utils/file/setNumberOfGrades.util'
 import { setRating } from '../../../../utils/file/setRating.util'
@@ -10,7 +10,6 @@ import { setRating } from '../../../../utils/file/setRating.util'
 import styles from '../Rating.module.scss'
 
 import Alert from '../../alert/Alert'
-import Loader from '../../loader/Loader'
 import Star from '../Star/Star'
 import { useRating } from '../useRating'
 
@@ -24,24 +23,28 @@ import { useRating } from '../useRating'
  * @returns JSX component RatingActive.
  */
 const RatingActive = ({ bookId }) => {
-	const { data, isLoading, refetch } = useBookByIdNotAuth(bookId)
-	const {
-		data: dataRate,
-		isLoading: isLoadingRate,
-		refetch: refetchRate
-	} = useRateBook(bookId)
+	const { data, isLoading, refetch } = useGetBookByIdNotAuth(bookId)
+	const { data: dataRate, isLoading: isLoadingRate } = useCheckRateBook(bookId)
+
+	const [isStarShow, setStarShow] = useState(undefined)
 
 	const { isLoadingMutate, error, isAlertShow, mutate } = useRating()
 
 	useEffect(() => {
 		refetch()
-		refetchRate()
 	})
 
-	const [isStarShow, setStarShow] = useState(undefined)
+	const clickHandler = event => {
+		let userRating
 
-	const clickHandler = e => {
-		const userRating = e.target.parentNode.getAttribute('data-value')
+		if (event.type === 'click') {
+			userRating =
+				+event.target.parentNode.attributes.getNamedItem('data-value')?.value
+		} else {
+			userRating = +event.target.attributes.getNamedItem('data-value')?.value
+		}
+
+		setStarShow(undefined)
 		mutate({ bookId, userRating })
 	}
 
@@ -55,12 +58,24 @@ const RatingActive = ({ bookId }) => {
 					clearTimeout(timeShowStar)
 				}, 500)
 			}}
+			onFocus={() => setStarShow(true)}
+			onBlur={event => {
+				if (event.target.attributes.getNamedItem('data-value')?.value === '4') {
+					let timeShowStar = setTimeout(() => {
+						setStarShow(false)
+						clearTimeout(timeShowStar)
+					}, 500)
+				}
+			}}
+			tabIndex={0}
 		>
 			{error && isAlertShow ? (
 				<Alert type='error'>{error?.response?.data?.message}</Alert>
 			) : null}
 			{isLoading || isLoadingRate || isLoadingMutate ? (
-				<Loader height='1.2vw' />
+				<div className={styles.ratingLoader}>
+					<span>Loading...</span>
+				</div>
 			) : (
 				<div>
 					<div

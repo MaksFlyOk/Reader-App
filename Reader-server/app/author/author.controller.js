@@ -1,28 +1,48 @@
 import asyncHandler from 'express-async-handler'
+
 import { prisma } from '../prisma.js'
 
-// @desc    Add new author
-// @route 	POST /api/author
-// @access  Admin
+/**
+ * @description Add new author.
+ * @request It is necessary to pass the author's name and images, if the image is not passed, but automatically replaced by a standard image.
+ * @response As an answer, we get the author's data.
+ *
+ * @route POST /api/author
+ * @access Admin
+ */
 export const addNewAuthor = asyncHandler(async (req, res) => {
-	const { name } = req.body
+	/**
+	 * @type {{name: string, images: string}}
+	 */
+	const { name, images } = req.body
 
 	const author = await prisma.author.create({
 		data: {
-			name
+			name,
+			images
 		}
 	})
 
 	res.json(author)
 })
 
-// @desc    Delete author
-// @route 	Post /api/author/delete/:id
-// @access  Admin
+/**
+ * @description Delete author.
+ * @request It is necessary to pass to req.params the id of the author to be deleted.
+ * @response As a response, we receive the author's data and a message to remove the author.
+ *
+ * @route DELETE /api/author/delete/:id
+ * @access Admin
+ */
 export const deleteAuthor = asyncHandler(async (req, res) => {
+	/**
+	 * @param {number} authorId - Author Id passed in req.params.
+	 */
+	const authorId = +req.params.id
+
 	const author = await prisma.author.delete({
 		where: {
-			id: +req.params.id
+			id: authorId
 		},
 		select: {
 			id: true,

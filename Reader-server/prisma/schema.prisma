@@ -19,13 +19,16 @@ model User {
   name         String
   password     String
   profileImage String @default("") @map("profile_image")
-  readLater    Book[]
+  readLater    Int[]
 
   isAdmin Boolean @default(false) @map("is_admin")
 
   BookLog    BookLog[]
   ChapterLog ChapterLog[]
   Ratings    Ratings[]
+
+  Book   Book? @relation(fields: [bookId], references: [id])
+  bookId Int?
 }
 
 model Author {
@@ -45,7 +48,7 @@ model Ratings {
 
   rating Int
 
-  user   User @relation(fields: [userId], references: [id])
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int  @map("user_id")
   book   Book @relation(fields: [bookId], references: [id], onDelete: Cascade)
   bookId Int  @map("book_id")
@@ -59,10 +62,12 @@ model Book {
   name        String
   description String
   images      String
-  genre       String   @default("")
-  publishDate String   @default("")
-  category    String[]
-  pages       Int      @default(0)
+  publishDate Int
+  category    Category[]
+  pages       Int        @default(0)
+
+  genre   Genre? @relation(fields: [genreId], references: [id])
+  genreId Int?   @map("genre_id")
 
   sumRate Int       @default(0)
   rate    Ratings[]
@@ -75,6 +80,26 @@ model Book {
   bookLogs BookLog[]
 
   user User[]
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  category String @unique
+
+  books Book[]
+}
+
+model Genre {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  genre String @unique
+
+  books Book[]
 }
 
 model BookLog {

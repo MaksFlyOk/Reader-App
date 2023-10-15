@@ -6,15 +6,15 @@ import { setRating } from '../../../../utils/file/setRating.util'
 import styles from '../Rating.module.scss'
 
 /**
- * Other books component. This component outputs other books, if the author has only one book, then the component outputs similar books by category, otherwise the rest of the author's books.
+ * This component is required to display a rating, without the ability to rate.
  * @component
  * @typedef PropType
  * @property {number} sumRate - It's the sum of all the ratings in the book data.
  * @property {number} rateLength - This is the length of the array with all the ratings, i.e. the number of users who gave a rating.
- * @property {string} style - These are the display styles of the component. By default they are "passive" - for displaying in the panel for each book (dark version), "passiveForBook" - for displaying in the book screen (light version).
+ * @property {"passive" | "passiveForBook"} style - These are the display styles of the component. By default they are "passive" - for displaying in the panel for each book (dark version), "passiveForBook" - for displaying in the book screen (light version).
  *
  * @param {PropType} props
- * @returns JSX component OtherBooks.
+ * @returns JSX component RatingPassive.
  */
 const RatingPassive = ({ sumRate, rateLength, style = 'passive' }) => {
 	return style === 'passive' ? (

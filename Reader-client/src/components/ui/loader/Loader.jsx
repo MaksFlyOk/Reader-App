@@ -6,9 +6,9 @@ import styles from './Loader.module.scss'
  * Loader component.
  * @component
  * @typedef PropType
- * @property {string} width - Sets the width of the loader.
- * @property {string} height - Sets the height of the loader.
- * @property {string} color - Sets the loader color, by default it is Accent(#cdb4db), there are also: Black(#2a2c2e), White(#f6f4f0).
+ * @property {string} width - Sets the width of the loader(In string format as a percentage, example: "50%").
+ * @property {string} height - Sets the height of the loader(In string format as a percentage, example: "50%").
+ * @property {"accent" | "dark" | "light"} color - Sets the loader color, by default it is "accent"(#cdb4db), there are also: "dark"(#2a2c2e), "light"(#f6f4f0).
  *
  * @param {PropType} props
  * @returns JSX component Loader.
@@ -37,7 +37,7 @@ const Loader = ({ width = '100%', height = '100%', color = 'Accent' }) => {
 Loader.propTypes = {
 	width: PropTypes.string,
 	height: PropTypes.string,
-	color: PropTypes.oneOf(['Accent', 'Black', 'White'])
+	color: PropTypes.oneOf(['accent', 'dark', 'light'])
 }
 
 export default Loader

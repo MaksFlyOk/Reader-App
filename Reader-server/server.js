@@ -5,13 +5,15 @@ import express from 'express'
 import fileUpload from 'express-fileupload'
 import morgan from 'morgan'
 import path from 'path'
+
+import { errorHandler, notFound } from './app/middleware/error.middleware.js'
+
 import adminRoutes from './app/admin/admin.routes.js'
 import authRoutes from './app/auth/auth.routes.js'
 import authorRoutes from './app/author/author.routes.js'
 import bookRoutes from './app/book/book.routes.js'
 import chapterRoutes from './app/chapter/chapter.routes.js'
 import fileRoutes from './app/files/files.routes.js'
-import { errorHandler, notFound } from './app/middleware/error.middleware.js'
 import { prisma } from './app/prisma.js'
 import userRoutes from './app/user/user.routes.js'
 

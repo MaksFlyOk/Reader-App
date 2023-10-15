@@ -12,7 +12,13 @@ export const setInitialTheAuthor = (authorName, maxLength) => {
 			}
 			return elem
 		})
-		return initialAuthor[0] + '.' + initialAuthor[1] + '. ' + initialAuthor[2]
+		return (
+			initialAuthor[0] +
+			'.' +
+			initialAuthor[1] +
+			'. ' +
+			initialAuthor.slice(2, initialAuthor.length).join(' ')
+		)
 	}
 
 	return authorName

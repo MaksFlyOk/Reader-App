@@ -1,16 +1,16 @@
 @import '/src/assets/styles/variables';
 @import '/src/assets/styles/mixins';
+@import '/src/assets/styles/fontMixins';
 
 .fillButton {
 	width: max-content;
 	padding: 13px 15px;
-	font-size: 30px;
-	font-weight: normal;
 	background-color: $accent;
-	color: $text-black-opacity87;
+	color: $black;
 	border-radius: 16px;
-	font-family: $accent-font;
-	transition: box-shadow ease-in-out 0.3s;
+
+	@include Headline3_400W24LHAccent;
+	@include transitionBoxShadow;
 }
 
 .fillButton:hover,
@@ -20,29 +20,41 @@
 .fillButton:active {
 	@include active;
 }
+.fillButton:disabled {
+	@include bg-loader(light);
+
+	pointer-events: none;
+	color: rgba($black, 50%);
+}
 
 .borderButton {
 	width: max-content;
 	padding: 13px 15px;
-	font-size: 30px;
-	font-weight: lighter;
 	border: 2px solid $accent;
 	color: $accent;
 	border-radius: 16px;
-	font-family: $accent-font;
 	transition-property: text-shadow, box-shadow;
 	transition-duration: 0.3s;
 	transition-timing-function: ease-in-out;
+
+	@include Headline3_300W24LHAccent;
 }
 
 .borderButton:hover,
 .borderButton:focus {
-	text-shadow: 5px 5px $text-black-opacity87;
+	text-shadow: 5px 5px $black;
 	@include hover-focus;
 }
 .borderButton:active {
-	text-shadow: 0px 0px $text-black-opacity87;
+	text-shadow: 0px 0px $black;
 	@include active;
+}
+.borderButton:disabled {
+	@include bg-loader(light);
+
+	pointer-events: none;
+	border-color: rgba($accent, 50%);
+	color: rgba($accent, 50%);
 }
 
 .arrowButton {
@@ -52,13 +64,12 @@
 	align-items: center;
 	gap: 12px;
 	padding: 13px 15px;
-	font-size: 30px;
-	font-weight: normal;
 	background-color: $accent;
-	color: $text-black-opacity87;
+	color: $black;
 	border-radius: 16px;
-	font-family: $accent-font;
-	transition: box-shadow ease-in-out 0.3s;
+
+	@include Headline3_400W24LHAccent;
+	@include transitionBoxShadow;
 }
 
 .arrowButton:hover,
@@ -67,4 +78,14 @@
 }
 .arrowButton:active {
 	@include active;
+}
+.arrowButton:disabled {
+	@include bg-loader(light);
+
+	pointer-events: none;
+	color: rgba($black, 50%);
+
+	> img {
+		opacity: 50%;
+	}
 }

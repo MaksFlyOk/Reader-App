@@ -1,0 +1,10 @@
+@import '/src/assets/styles/variables';
+
+.authorsWrapper {
+	background-color: $dark-accent;
+	margin: 24px 0 48px 0;
+	padding: 48px 12px;
+	display: flex;
+	gap: 24px;
+	flex-wrap: wrap;
+}
